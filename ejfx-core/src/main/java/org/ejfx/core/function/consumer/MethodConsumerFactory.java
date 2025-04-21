@@ -47,7 +47,7 @@ public final class MethodConsumerFactory<T> extends FunctionFactoryBase<Method, 
     }
 
     public static <T> MethodConsumerFactory<T> of() {
-        return new MethodConsumerFactory<T>();
+        return new MethodConsumerFactory<>();
     }
 
 }

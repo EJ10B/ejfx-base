@@ -42,7 +42,6 @@ public abstract class MethodLambdaMetafactoryFactoryBase<F> extends FunctionFact
 
             result = (F) callSite.getTarget().invokeExact();
         } catch (final Exception ignored) {
-            ignored.printStackTrace();
             // do nothing
         } catch (final Throwable t) {
             throw new RuntimeException(t);

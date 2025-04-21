@@ -16,7 +16,7 @@ public final class SingletonBuilder<T> implements Builder<T> {
     }
 
     public static <T> SingletonBuilder<T> of(final T value) {
-        return new SingletonBuilder<T>(value);
+        return new SingletonBuilder<>(value);
     }
 
 }

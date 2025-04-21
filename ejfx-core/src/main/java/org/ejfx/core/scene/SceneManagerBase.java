@@ -14,7 +14,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import org.ejfx.core.controller.ControllerBase;
-import org.ejfx.core.scene.Scene;
 import org.ejfx.core.scene.config.DefinedDialogDescriptor;
 import org.ejfx.core.scene.config.DefinedFileDialogDescriptor;
 import org.ejfx.core.scene.config.DefinedSceneDescriptor;
