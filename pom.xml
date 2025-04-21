@@ -8,7 +8,7 @@
     <name>Archetype - ejfx</name>
     <url>http://maven.apache.org</url>
     <modules>
-        <module>ejfx-base</module>
-        <module>ejfx-demo</module>
+        <module>ejfx-core</module>
+        <module>ejfx-core-sample</module>
     </modules>
 </project>

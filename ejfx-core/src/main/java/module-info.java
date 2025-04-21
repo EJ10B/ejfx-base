@@ -1,4 +1,4 @@
-module ejfx.base {
+module ejfx.core {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.media;
