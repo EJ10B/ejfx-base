@@ -22,11 +22,11 @@ public abstract class SceneManagerDescriptorLoaderBase<T> extends DescriptorLoad
         DefinedSceneManagerDescriptor result = null;
 
         if (!descriptors.isEmpty()) {
-            final HashMap<String, SceneDescriptor> sceneDescriptors = new HashMap<>(descriptors.size());
+            final HashMap<String, SceneDescriptor> sceneDescriptors = HashMap.newHashMap(descriptors.size());
             DefaultStageDescriptor defaultStageDescriptor = DefaultStageDescriptor.of();
-            final HashMap<String, DialogDescriptor> dialogDescriptors = new HashMap<>(descriptors.size());
+            final HashMap<String, DialogDescriptor> dialogDescriptors = HashMap.newHashMap(descriptors.size());
             DefaultDialogDescriptor defaultDialogDescriptor = DefaultDialogDescriptor.of();
-            final HashMap<String, FileDialogDescriptor> fileDialogDescriptors = new HashMap<>(descriptors.size());
+            final HashMap<String, FileDialogDescriptor> fileDialogDescriptors = HashMap.newHashMap(descriptors.size());
             DefaultFileDialogDescriptor defaultFileDialogDescriptor = DefaultFileDialogDescriptor.of();
 
             for (final DescriptorBase descriptor : descriptors) {
