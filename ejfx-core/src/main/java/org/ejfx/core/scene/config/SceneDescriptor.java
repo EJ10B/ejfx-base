@@ -4,18 +4,22 @@ public final class SceneDescriptor extends DescriptorBase {
 
     private final StageDescriptor stageDescriptor;
 
-    private final String resource;
+    private final String location;
+
+    private final String resources;
 
     private final Class<?> controller;
 
     private SceneDescriptor(final String name,
                             final StageDescriptor stageDescriptor,
-                            final String resource,
+                            final String location,
+                            final String resources,
                             final Class<?> controller) {
         super(name);
 
         this.stageDescriptor = stageDescriptor;
-        this.resource = resource;
+        this.location = location;
+        this.resources = resources;
         this.controller = controller;
     }
 
@@ -23,8 +27,12 @@ public final class SceneDescriptor extends DescriptorBase {
         return stageDescriptor;
     }
 
-    public String getResource() {
-        return resource;
+    public String getLocation() {
+        return location;
+    }
+
+    public String getResources() {
+        return resources;
     }
 
     public Class<?> getController() {
@@ -34,15 +42,17 @@ public final class SceneDescriptor extends DescriptorBase {
     public DefinedSceneDescriptor getDefined(final DefaultStageDescriptor descriptor) {
         return DefinedSceneDescriptor.of(getName(),
                 (stageDescriptor != null) ? stageDescriptor.getDefined(descriptor) : null,
-                resource,
+                location,
+                resources,
                 controller);
     }
 
     public static SceneDescriptor of(final String name,
                                      final StageDescriptor descriptor,
-                                     final String resource,
+                                     final String location,
+                                     final String resources,
                                      final Class<?> controller) {
-        return new SceneDescriptor(name, descriptor, resource, controller);
+        return new SceneDescriptor(name, descriptor, location, resources, controller);
     }
 
 }

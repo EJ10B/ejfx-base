@@ -9,7 +9,9 @@ public @interface FxScene {
 
     String name();
 
-    String resource();
+    String location();
+
+    String resources() default "";
 
     FxStage[] stage() default {};
 

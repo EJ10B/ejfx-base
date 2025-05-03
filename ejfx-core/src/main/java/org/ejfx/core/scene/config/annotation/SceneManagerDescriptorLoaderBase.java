@@ -58,9 +58,10 @@ public abstract class SceneManagerDescriptorLoaderBase<T> extends DescriptorLoad
 
     protected DescriptorBase getSceneDescriptor(final String name,
                                                 final StageDescriptor descriptor,
-                                                final String resource,
+                                                final String location,
+                                                final String resources,
                                                 final Class<?> controller) {
-        return SceneDescriptor.of(name, descriptor, resource, controller);
+        return SceneDescriptor.of(name, descriptor, location, resources, controller);
     }
 
     protected DescriptorBase getDialogDescriptor(final String name,

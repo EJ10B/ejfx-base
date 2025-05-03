@@ -12,4 +12,6 @@ module ejfx.core {
     exports org.ejfx.core.scene.config.annotation;
     exports org.ejfx.core.controller;
     exports org.ejfx.core.stage;
+
+    opens org.ejfx.core.controller to javafx.fxml;
 }

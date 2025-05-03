@@ -365,7 +365,7 @@ public abstract class SceneManagerBase<A> {
     }
 
     private void doShowScene(final DefinedSceneDescriptor descriptor, final Object... values) throws Exception {
-        final FXMLLoader loader = new FXMLLoader(application.getClass().getResource(descriptor.getResource()));
+        final FXMLLoader loader = new FXMLLoader(application.getClass().getResource(descriptor.getLocation()));
         loader.setControllerFactory((type) -> doCreateController(type, descriptor, values));
         final Parent parent = loader.load();
 
