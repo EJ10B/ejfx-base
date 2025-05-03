@@ -20,12 +20,12 @@ public class TextEditorController extends ControllerBase<TextEditorApplication> 
     @FXML
     private TextArea editorTextArea;
 
-    protected TextEditorController(TextEditorApplication application) {
+    protected TextEditorController(final TextEditorApplication application) {
         super(application);
     }
 
     @FXML
-    public void handleOpenFileMenuItem(ActionEvent actionEvent) {
+    public void handleOpenFileMenuItem(final ActionEvent actionEvent) {
         final List<File> files = getSceneManager().showFileDialog("openTextFile");
 
         if (!files.isEmpty()) {
@@ -45,7 +45,7 @@ public class TextEditorController extends ControllerBase<TextEditorApplication> 
     }
 
     @FXML
-    public void handleSaveFileMenuItem(ActionEvent actionEvent) {
+    public void handleSaveFileMenuItem(final ActionEvent actionEvent) {
         final List<File> files = getSceneManager().showFileDialog("saveTextFile");
 
         if (!files.isEmpty()) {
@@ -54,7 +54,7 @@ public class TextEditorController extends ControllerBase<TextEditorApplication> 
                     writer.write(editorTextArea.getText());
                 }
 
-                getSceneManager().showDialog("saveFileSuccessful");
+                getSceneManager().showDialog("saveFileSuccess");
             } catch (final Exception e) {
                 getSceneManager().showDialog("saveFileError", e);
             }
@@ -62,7 +62,7 @@ public class TextEditorController extends ControllerBase<TextEditorApplication> 
     }
 
     @FXML
-    public void handleCloseMenuItem(ActionEvent actionEvent) {
+    public void handleCloseMenuItem(final ActionEvent actionEvent) {
         final Optional<ButtonType> button = getSceneManager().showDialog("exitApplicationConfirm");
 
         if (button.isPresent() && button.get() == ButtonType.OK) {
@@ -71,7 +71,7 @@ public class TextEditorController extends ControllerBase<TextEditorApplication> 
     }
 
     @FXML
-    public void handleFindMenuItem(ActionEvent actionEvent) {
+    public void handleFindMenuItem(final ActionEvent actionEvent) {
         final Optional<String> findText = getSceneManager().showDialog("findText");
 
         if (findText.isPresent()) {
@@ -88,7 +88,7 @@ public class TextEditorController extends ControllerBase<TextEditorApplication> 
     }
 
     @FXML
-    public void handleAboutMenuItem(ActionEvent actionEvent) {
+    public void handleAboutMenuItem(final ActionEvent actionEvent) {
         getSceneManager().showDialog("aboutApplication");
     }
 
