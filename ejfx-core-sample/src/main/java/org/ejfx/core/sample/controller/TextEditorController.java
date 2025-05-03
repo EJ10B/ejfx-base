@@ -38,8 +38,8 @@ public class TextEditorController extends ControllerBase<TextEditorApplication> 
                     final String line = scanner.next();
                     editorTextArea.appendText(line + System.lineSeparator());
                 }
-            } catch (FileNotFoundException e) {
-                throw new RuntimeException(e);
+            } catch (final Exception e) {
+                getSceneManager().showDialog("openFileError", e);
             }
         }
     }
@@ -49,13 +49,15 @@ public class TextEditorController extends ControllerBase<TextEditorApplication> 
         final List<File> files = getSceneManager().showFileDialog("saveTextFile");
 
         if (!files.isEmpty()) {
-            try (final BufferedWriter writer = new BufferedWriter(new FileWriter(files.getFirst(), StandardCharsets.UTF_8))) {
-                writer.write(editorTextArea.getText());
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            try {
+                try (final BufferedWriter writer = new BufferedWriter(new FileWriter(files.getFirst(), StandardCharsets.UTF_8))) {
+                    writer.write(editorTextArea.getText());
+                }
 
-            getSceneManager().showDialog("saveFileSuccessful");
+                getSceneManager().showDialog("saveFileSuccessful");
+            } catch (final Exception e) {
+                getSceneManager().showDialog("saveFileError", e);
+            }
         }
     }
 

@@ -15,7 +15,9 @@ import org.ejfx.core.util.lang.Boolean;
 @FxDialog(name = "exitApplicationConfirm", type = DialogType.CONFIRMATION, title = "Confirm ...", header = "Exit Text Editor", content = "Are you sure you want to exit the Text Editor?")
 @FxDialog(name = "findText", type = DialogType.TEXT, title = "Find ...", header = "Search for text", content = "Please enter a text to search for ...")
 @FxDialog(name = "textNotFound", title = "Text not found ...", header = "Text has not been found!")
+@FxDialog(name = "saveFileError", title = "Save ...", header = "Save file error!", content = "Details:")
 @FxDialog(name = "saveFileSuccessful", title = "Save ...", header = "Save successful!")
+@FxDialog(name = "openFileError", title = "Open ...", header = "Open file error!", content = "Details:")
 
 @FxDefaultFileDialog(type = FileDialogType.OPEN_FILE)
 @FxFileDialog(name = "openTextFile", title = "Open text file", filters = @FxExtensionFilter(description = "Text file (*.txt)", extensions = "*.txt"))
