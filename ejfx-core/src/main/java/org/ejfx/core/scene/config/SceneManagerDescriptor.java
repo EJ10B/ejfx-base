@@ -67,10 +67,10 @@ public final class SceneManagerDescriptor {
         final Map<String, DefinedSceneDescriptor> result;
 
         if (!sceneDescriptors.isEmpty()) {
-            final HashMap<String, DefinedSceneDescriptor> descriptors = new HashMap<>(sceneDescriptors.size());
+            final HashMap<String, DefinedSceneDescriptor> descriptors = HashMap.newHashMap(sceneDescriptors.size());
 
-            for (final String name : sceneDescriptors.keySet()) {
-                descriptors.put(name, sceneDescriptors.get(name).getDefined(defaultStageDescriptor));
+            for (final Map.Entry<String, SceneDescriptor> entry : sceneDescriptors.entrySet()) {
+                descriptors.put(entry.getKey(), entry.getValue().getDefined(defaultStageDescriptor));
             }
 
             result = descriptors;
@@ -85,10 +85,10 @@ public final class SceneManagerDescriptor {
         final Map<String, DefinedDialogDescriptor> result;
 
         if (!dialogDescriptors.isEmpty()) {
-            final HashMap<String, DefinedDialogDescriptor> descriptors = new HashMap<>(dialogDescriptors.size());
+            final HashMap<String, DefinedDialogDescriptor> descriptors = HashMap.newHashMap(dialogDescriptors.size());
 
-            for (final String name : dialogDescriptors.keySet()) {
-                descriptors.put(name, dialogDescriptors.get(name).getDefined(defaultDialogDescriptor));
+            for (final Map.Entry<String, DialogDescriptor> entry : dialogDescriptors.entrySet()) {
+                descriptors.put(entry.getKey(), entry.getValue().getDefined(defaultDialogDescriptor));
             }
 
             result = descriptors;
@@ -103,10 +103,10 @@ public final class SceneManagerDescriptor {
         final Map<String, DefinedFileDialogDescriptor> result;
 
         if (!fileDialogDescriptors.isEmpty()) {
-            final HashMap<String, DefinedFileDialogDescriptor> descriptors = new HashMap<>(fileDialogDescriptors.size());
+            final HashMap<String, DefinedFileDialogDescriptor> descriptors = HashMap.newHashMap(fileDialogDescriptors.size());
 
-            for (final String name : fileDialogDescriptors.keySet()) {
-                descriptors.put(name, fileDialogDescriptors.get(name).getDefined(defaultFileDialogDescriptor));
+            for (final Map.Entry<String, FileDialogDescriptor> entry : fileDialogDescriptors.entrySet()) {
+                descriptors.put(entry.getKey(), entry.getValue().getDefined(defaultFileDialogDescriptor));
             }
 
             result = descriptors;
