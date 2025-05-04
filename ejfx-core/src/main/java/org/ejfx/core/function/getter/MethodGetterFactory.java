@@ -33,7 +33,7 @@ public final class MethodGetterFactory<T> extends FunctionFactoryBase<Method, Ge
                     handle.type());
 
             result = (Getter<T, ?>) callSite.getTarget().invokeExact();
-        } catch (final Exception ignored) {
+        } catch (final Exception _) {
             // do nothing
         } catch (final Throwable t) {
             throw new RuntimeException(t);

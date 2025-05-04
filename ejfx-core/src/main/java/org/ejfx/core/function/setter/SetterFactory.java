@@ -29,7 +29,7 @@ public final class SetterFactory<T> extends FunctionFactoryBase<Method, Setter<T
                     handle.type());
 
             result = (Setter<T, ?>) callSite.getTarget().invokeExact();
-        } catch (final Exception ignored) {
+        } catch (final Exception _) {
             // do nothing
         } catch (final Throwable t) {
             throw new RuntimeException(t);

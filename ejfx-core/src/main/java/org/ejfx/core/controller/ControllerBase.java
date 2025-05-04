@@ -27,8 +27,9 @@ public abstract class ControllerBase<A extends ApplicationBase<?>> {
         return application;
     }
 
-    public final SceneManagerBase<?> getSceneManager() {
-        return application.getSceneManager();
+    @SuppressWarnings("unchecked")
+    public final SceneManagerBase<A> getSceneManager() {
+        return (SceneManagerBase<A>) application.getSceneManager();
     }
 
     public final void closeScene() {

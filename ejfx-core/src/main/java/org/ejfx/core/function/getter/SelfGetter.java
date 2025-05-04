@@ -2,7 +2,7 @@ package org.ejfx.core.function.getter;
 
 public final class SelfGetter<T> implements Getter<T, T> {
 
-    private final static SelfGetter<?> INSTANCE = new SelfGetter<>();
+    private static final SelfGetter<?> INSTANCE = new SelfGetter<>();
 
     private SelfGetter() {
         // do nothing

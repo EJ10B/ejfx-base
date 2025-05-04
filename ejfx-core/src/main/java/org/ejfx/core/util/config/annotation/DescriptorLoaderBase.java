@@ -84,7 +84,7 @@ public abstract class DescriptorLoaderBase<T, E, V> {
                             } else if (repeatableAnnotationTypes.contains(annotationType)) {
                                 descriptors.addAll(getDescriptors(type, annotation));
                             }
-                        } catch (final Exception ignored) {
+                        } catch (final Exception _) {
                             // ignored
                         }
                     }
@@ -110,7 +110,7 @@ public abstract class DescriptorLoaderBase<T, E, V> {
                                 } else if (repeatableAnnotationTypes.contains(annotationType)) {
                                     descriptors.addAll(getDescriptors(field, annotation));
                                 }
-                            } catch (final Exception ignored) {
+                            } catch (final Exception _) {
                                 // ignored
                             }
                         }
@@ -137,7 +137,7 @@ public abstract class DescriptorLoaderBase<T, E, V> {
                                 } else if (repeatableAnnotationTypes.contains(annotationType)) {
                                     descriptors.addAll(getDescriptors(method, annotation));
                                 }
-                            } catch (final Exception ignored) {
+                            } catch (final Exception _) {
                                 // ignored
                             }
                         }

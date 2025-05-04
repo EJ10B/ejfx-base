@@ -29,7 +29,7 @@ public final class MethodValidatorFactory<T> extends FunctionFactoryBase<Method,
                     handle.type());
 
             result = (Validator<T>) callSite.getTarget().invokeExact();
-        } catch (final Exception ignored) {
+        } catch (final Exception _) {
             // do nothing
         } catch (final Throwable t) {
             throw new RuntimeException(t);
