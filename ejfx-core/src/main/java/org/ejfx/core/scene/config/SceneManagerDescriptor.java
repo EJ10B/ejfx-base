@@ -131,4 +131,15 @@ public final class SceneManagerDescriptor {
                 defaultFileDialogDescriptor);
     }
 
+    public static SceneManagerDescriptor of(final DefaultStageDescriptor defaultStageDescriptor,
+                                            final DefaultDialogDescriptor defaultDialogDescriptor,
+                                            final DefaultFileDialogDescriptor defaultFileDialogDescriptor) {
+        return new SceneManagerDescriptor(Map.of(),
+                defaultStageDescriptor,
+                Map.of(),
+                defaultDialogDescriptor,
+                Map.of(),
+                defaultFileDialogDescriptor);
+    }
+
 }

@@ -19,7 +19,7 @@ public abstract class SceneManagerDescriptorLoaderBase<T> extends DescriptorLoad
 
     @Override
     protected DefinedSceneManagerDescriptor convertDescriptors(final List<DescriptorBase> descriptors) {
-        DefinedSceneManagerDescriptor result = null;
+        final DefinedSceneManagerDescriptor result;
 
         if (!descriptors.isEmpty()) {
             final HashMap<String, SceneDescriptor> sceneDescriptors = HashMap.newHashMap(descriptors.size());
@@ -30,18 +30,19 @@ public abstract class SceneManagerDescriptorLoaderBase<T> extends DescriptorLoad
             DefaultFileDialogDescriptor defaultFileDialogDescriptor = DefaultFileDialogDescriptor.of();
 
             for (final DescriptorBase descriptor : descriptors) {
-                if (descriptor instanceof final SceneDescriptor sceneDescriptor) {
-                    sceneDescriptors.put(descriptor.getName(), sceneDescriptor);
-                } else if (descriptor instanceof final DialogDescriptor dialogDescriptor) {
-                    dialogDescriptors.put(descriptor.getName(), dialogDescriptor);
-                } else if (descriptor instanceof final FileDialogDescriptor fileDialogDescriptor) {
-                    fileDialogDescriptors.put(descriptor.getName(), fileDialogDescriptor);
-                } else if (descriptor instanceof final DefaultDialogDescriptor dialogDescriptor) {
-                    defaultDialogDescriptor = dialogDescriptor;
-                } else if (descriptor instanceof final DefaultFileDialogDescriptor fileDialogDescriptor) {
-                    defaultFileDialogDescriptor = fileDialogDescriptor;
-                } else if (descriptor instanceof final DefaultStageDescriptor stageDescriptor) {
-                    defaultStageDescriptor = stageDescriptor;
+                switch (descriptor) {
+                    case final SceneDescriptor sceneDescriptor ->
+                            sceneDescriptors.put(sceneDescriptor.getName(), sceneDescriptor);
+                    case final DialogDescriptor dialogDescriptor ->
+                            dialogDescriptors.put(dialogDescriptor.getName(), dialogDescriptor);
+                    case final FileDialogDescriptor fileDialogDescriptor ->
+                            fileDialogDescriptors.put(fileDialogDescriptor.getName(), fileDialogDescriptor);
+                    case final DefaultDialogDescriptor dialogDescriptor -> defaultDialogDescriptor = dialogDescriptor;
+                    case final DefaultFileDialogDescriptor fileDialogDescriptor ->
+                            defaultFileDialogDescriptor = fileDialogDescriptor;
+                    case final DefaultStageDescriptor stageDescriptor -> defaultStageDescriptor = stageDescriptor;
+                    case null, default ->
+                            throw new IllegalStateException(String.format("Unable convert descriptor - unknown [%s] descriptor.", descriptor));
                 }
             }
 
@@ -51,6 +52,10 @@ public abstract class SceneManagerDescriptorLoaderBase<T> extends DescriptorLoad
                     defaultDialogDescriptor,
                     fileDialogDescriptors,
                     defaultFileDialogDescriptor).getDefined();
+        } else {
+            result = SceneManagerDescriptor.of(DefaultStageDescriptor.of(),
+                    DefaultDialogDescriptor.of(),
+                    DefaultFileDialogDescriptor.of()).getDefined();
         }
 
         return result;
