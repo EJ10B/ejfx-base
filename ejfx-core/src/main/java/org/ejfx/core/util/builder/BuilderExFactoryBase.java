@@ -49,7 +49,7 @@ public abstract class BuilderExFactoryBase implements BuilderFactory {
         final Map<Class<?>, Builder<?>> result;
 
         if (!builders.isEmpty()) {
-            final HashMap<Class<?>, Builder<?>> correctedBuilders = new HashMap<>(builders.size());
+            final HashMap<Class<?>, Builder<?>> correctedBuilders = HashMap.newHashMap(builders.size());
 
             for (final BuilderEx<?> builder : builders) {
                 for (final Class<?> type : builder.getTypes()) {

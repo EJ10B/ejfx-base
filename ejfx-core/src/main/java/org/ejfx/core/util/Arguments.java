@@ -7,7 +7,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-public class Arguments {
+public final class Arguments {
 
     private static final String REQUIRE_NON_NULL = "The %s' can not be null.";
 
@@ -16,6 +16,10 @@ public class Arguments {
     // private static final String REQUIRE_INSTANCE_OF = "The %s' can not be null or not instance of '%s'.";
 
     private static final String REQUIRE_DEFINED = "The %s' can not be null or not defined.";
+
+    private Arguments() {
+        // no-op
+    }
 
     public static <T> T requireNonNull(final T obj, final String argName) {
         if (obj == null) {

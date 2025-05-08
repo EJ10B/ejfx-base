@@ -39,27 +39,27 @@ public abstract class DescriptorLoaderBase<T, E, V> {
     protected abstract List<Class<? extends Annotation>> getMethodRepeatableAnnotationTypes(Class<?> type);
 
     protected E getDescriptor(final Class<?> type, final Annotation annotation) {
-        throw new IllegalStateException(String.format("Unable get descriptor - unknown [%s] annotation.", annotation));
+        throw new IllegalStateException(String.format("Unable get descriptor - unknown [%s] type annotation.", annotation));
     }
 
     protected List<E> getDescriptors(final Class<?> type, final Annotation annotation) {
-        throw new IllegalStateException(String.format("Unable get descriptors - unknown [%s] annotation.", annotation));
+        throw new IllegalStateException(String.format("Unable get descriptors - unknown [%s] type annotation.", annotation));
     }
 
     protected E getDescriptor(final Field field, final Annotation annotation) {
-        throw new IllegalStateException(String.format("Unable get descriptor - unknown [%s] annotation.", annotation));
+        throw new IllegalStateException(String.format("Unable get descriptor - unknown [%s] field annotation.", annotation));
     }
 
     protected List<E> getDescriptors(final Field field, final Annotation annotation) {
-        throw new IllegalStateException(String.format("Unable get descriptors - unknown [%s] annotation.", annotation));
+        throw new IllegalStateException(String.format("Unable get descriptors - unknown [%s] field annotation.", annotation));
     }
 
     protected E getDescriptor(final Method method, final Annotation annotation) {
-        throw new IllegalStateException(String.format("Unable get descriptor - unknown [%s] annotation.", annotation));
+        throw new IllegalStateException(String.format("Unable get descriptor - unknown [%s] method annotation.", annotation));
     }
 
     protected List<? extends E> getDescriptors(final Method method, final Annotation annotation) {
-        throw new IllegalStateException(String.format("Unable get descriptors - unknown [%s] annotation.", annotation));
+        throw new IllegalStateException(String.format("Unable get descriptors - unknown [%s] method annotation.", annotation));
     }
 
     private List<E> doGetDescriptors(final Class<?> type) {
