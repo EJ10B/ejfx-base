@@ -54,19 +54,12 @@ public abstract class ControllerDescriptorLoaderBase<T> extends DescriptorLoader
 
     @Override
     protected DescriptorBase<T> getDescriptor(final Field field, final Annotation annotation) {
-        final DescriptorBase<T> result;
-
-        if (annotation instanceof final FxShowDialog fxShowDialog) {
-            result = doGetShowDialogDescriptor(field, fxShowDialog);
-        } else if (annotation instanceof final FxShowFileDialog fxShowFileDialog) {
-            result = doGetShowFileDialogDescriptor(field, fxShowFileDialog);
-        } else if (annotation instanceof final FxShowScene fxShowScene) {
-            result = doGetShowSceneDescriptor(field, fxShowScene);
-        } else {
-            result = super.getDescriptor(field, annotation);
-        }
-
-        return result;
+        return switch (annotation) {
+            case FxShowDialog fxShowDialog -> doGetShowDialogDescriptor(field, fxShowDialog);
+            case FxShowFileDialog fxShowFileDialog -> doGetShowFileDialogDescriptor(field, fxShowFileDialog);
+            case FxShowScene fxShowScene -> doGetShowSceneDescriptor(field, fxShowScene);
+            case null, default -> super.getDescriptor(field, annotation);
+        };
     }
 
     @Override
