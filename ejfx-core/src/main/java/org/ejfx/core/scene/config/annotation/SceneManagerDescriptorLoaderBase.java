@@ -30,18 +30,18 @@ public abstract class SceneManagerDescriptorLoaderBase<T> extends DescriptorLoad
             DefaultFileDialogDescriptor defaultFileDialogDescriptor = DefaultFileDialogDescriptor.of();
 
             for (final DescriptorBase descriptor : descriptors) {
-                if (descriptor instanceof SceneDescriptor) {
-                    sceneDescriptors.put(descriptor.getName(), (SceneDescriptor) descriptor);
-                } else if (descriptor instanceof DialogDescriptor) {
-                    dialogDescriptors.put(descriptor.getName(), (DialogDescriptor) descriptor);
-                } else if (descriptor instanceof FileDialogDescriptor) {
-                    fileDialogDescriptors.put(descriptor.getName(), (FileDialogDescriptor) descriptor);
-                } else if (descriptor instanceof DefaultDialogDescriptor) {
-                    defaultDialogDescriptor = (DefaultDialogDescriptor) descriptor;
-                } else if (descriptor instanceof DefaultFileDialogDescriptor) {
-                    defaultFileDialogDescriptor = (DefaultFileDialogDescriptor) descriptor;
-                } else if (descriptor instanceof DefaultStageDescriptor) {
-                    defaultStageDescriptor = (DefaultStageDescriptor) descriptor;
+                if (descriptor instanceof final SceneDescriptor sceneDescriptor) {
+                    sceneDescriptors.put(descriptor.getName(), sceneDescriptor);
+                } else if (descriptor instanceof final DialogDescriptor dialogDescriptor) {
+                    dialogDescriptors.put(descriptor.getName(), dialogDescriptor);
+                } else if (descriptor instanceof final FileDialogDescriptor fileDialogDescriptor) {
+                    fileDialogDescriptors.put(descriptor.getName(), fileDialogDescriptor);
+                } else if (descriptor instanceof final DefaultDialogDescriptor dialogDescriptor) {
+                    defaultDialogDescriptor = dialogDescriptor;
+                } else if (descriptor instanceof final DefaultFileDialogDescriptor fileDialogDescriptor) {
+                    defaultFileDialogDescriptor = fileDialogDescriptor;
+                } else if (descriptor instanceof final DefaultStageDescriptor stageDescriptor) {
+                    defaultStageDescriptor = stageDescriptor;
                 }
             }
 
