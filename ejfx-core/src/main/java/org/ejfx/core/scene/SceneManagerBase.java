@@ -332,10 +332,10 @@ public abstract class SceneManagerBase<A> {
             chooser.getExtensionFilters().addAll(descriptor.getFilters());
 
             for (final Object value : values) {
-                if (value instanceof File) {
-                    chooser.setInitialDirectory((File) value);
-                } else if (value instanceof String) {
-                    chooser.setInitialFileName((String) value);
+                if (value instanceof final File file) {
+                    chooser.setInitialDirectory(file);
+                } else if (value instanceof final String s) {
+                    chooser.setInitialFileName(s);
                 }
             }
 
@@ -353,8 +353,8 @@ public abstract class SceneManagerBase<A> {
             chooser.setTitle(descriptor.getTitle());
 
             for (final Object value : values) {
-                if (value instanceof File) {
-                    chooser.setInitialDirectory((File) value);
+                if (value instanceof final File file) {
+                    chooser.setInitialDirectory(file);
                 }
             }
 
@@ -431,20 +431,7 @@ public abstract class SceneManagerBase<A> {
     }
 
     private static Node doGetDialogExpandableContent(final Object value) {
-        final TextArea textArea = new TextArea(String.valueOf(value));
-        textArea.setEditable(false);
-        textArea.setWrapText(true);
-
-        textArea.setMaxWidth(Double.MAX_VALUE);
-        textArea.setMaxHeight(Double.MAX_VALUE);
-        GridPane.setVgrow(textArea, Priority.ALWAYS);
-        GridPane.setHgrow(textArea, Priority.ALWAYS);
-
-        final GridPane gridPane = new GridPane();
-        gridPane.setMaxWidth(Double.MAX_VALUE);
-        gridPane.add(textArea, 0, 0);
-
-        return gridPane;
+        return doGetDialogExpandableContentAsTextArea(String.valueOf(value));
     }
 
     private static Node doGetDialogExpandableContent(final Throwable value) {
@@ -452,7 +439,11 @@ public abstract class SceneManagerBase<A> {
         final PrintWriter printWriter = new PrintWriter(stringWriter);
         value.printStackTrace(printWriter);
 
-        final TextArea textArea = new TextArea(stringWriter.toString());
+        return doGetDialogExpandableContentAsTextArea(stringWriter.toString());
+    }
+
+    private static Node doGetDialogExpandableContentAsTextArea(final String value) {
+        final TextArea textArea = new TextArea(value);
         textArea.setEditable(false);
         textArea.setWrapText(true);
 
