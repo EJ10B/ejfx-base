@@ -202,8 +202,8 @@ public abstract class SceneManagerBase<A> {
         if (values != null && values.length > 0) {
             final Object value = values[0];
 
-            if (value instanceof Throwable) {
-                result = doGetDialogExpandableContent((Throwable) value);
+            if (value instanceof final Throwable throwable) {
+                result = doGetDialogExpandableContent(throwable);
             } else {
                 result = doGetDialogExpandableContent(value);
             }
@@ -256,10 +256,8 @@ public abstract class SceneManagerBase<A> {
             final Scene parentScene = currentScene.getParent();
 
             if (parentScene != null) {
-                if (parentScene.getWindow() != null) {
-                    if (closeStage) {
-                        doGetCurrentStage().close();
-                    }
+                if (parentScene.getWindow() != null && closeStage) {
+                    doGetCurrentStage().close();
                 }
 
                 currentScene = parentScene;
