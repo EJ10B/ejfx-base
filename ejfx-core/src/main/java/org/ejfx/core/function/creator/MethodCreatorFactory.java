@@ -15,30 +15,8 @@ public final class MethodCreatorFactory<T> extends FunctionFactoryBase<Method, C
         // do nothing
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     protected Creator<T> getComplexFunction(final Method method) {
-//        Creator<T> result = null;
-//
-//        try {
-//            final MethodHandles.Lookup lookup = MethodHandles.lookup();
-//            final MethodHandle handle = lookup.unreflect(method);
-//            final CallSite callSite = LambdaMetafactory.metafactory(
-//                    lookup,
-//                    "create",
-//                    MethodType.methodType(Creator.class),
-//                    MethodType.methodType(Object.class, Object[].class),
-//                    handle,
-//                    handle.type());
-//
-//            result = (Creator<T>) callSite.getTarget().invokeExact();
-//        } catch (final Exception ignored) {
-//            // do nothing
-//        } catch (final Throwable t) {
-//            throw new RuntimeException(t);
-//        }
-//
-//        return result;\
         return null;
     }
 
