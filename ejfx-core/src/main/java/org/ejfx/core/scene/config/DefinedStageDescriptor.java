@@ -3,7 +3,7 @@ package org.ejfx.core.scene.config;
 import javafx.stage.Modality;
 import org.ejfx.core.util.Arguments;
 
-public class DefinedStageDescriptor {
+public final class DefinedStageDescriptor {
 
     private final Modality modality;
 

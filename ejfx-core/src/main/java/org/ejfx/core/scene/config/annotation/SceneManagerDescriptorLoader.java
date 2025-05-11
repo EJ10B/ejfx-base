@@ -108,6 +108,7 @@ public class SceneManagerDescriptorLoader<T> extends SceneManagerDescriptorLoade
         return result;
     }
 
+    @SuppressWarnings("unused")
     private DescriptorBase doGetDescriptor(final Class<?> type, final FxDialog annotation) {
         return getDialogDescriptor(annotation.name(),
                 annotation.type(),
@@ -166,6 +167,7 @@ public class SceneManagerDescriptorLoader<T> extends SceneManagerDescriptorLoade
                 annotation.controller());
     }
 
+    @SuppressWarnings("unused")
     private List<FileChooser.ExtensionFilter> doGetExtensionFilters(final Class<?> type, final FxExtensionFilter[] annotations) {
         List<FileChooser.ExtensionFilter> result = List.of();
 
@@ -182,6 +184,7 @@ public class SceneManagerDescriptorLoader<T> extends SceneManagerDescriptorLoade
         return result;
     }
 
+    @SuppressWarnings("unused")
     private StageDescriptor doGetStageDescriptor(final Class<?> type, final FxStage[] annotations) {
         StageDescriptor result = null;
 
@@ -193,14 +196,17 @@ public class SceneManagerDescriptorLoader<T> extends SceneManagerDescriptorLoade
         return result;
     }
 
+    @SuppressWarnings("unused")
     private DescriptorBase doGetDescriptor(final Class<?> type, final FxDefaultDialog annotation) {
         return getDefaultDialogDescriptor(annotation.type(), annotation.modality(), annotation.expanded());
     }
 
+    @SuppressWarnings("unused")
     private DescriptorBase doGetDescriptor(final Class<?> type, final FxDefaultFileDialog annotation) {
         return getDefaultFileDialogDescriptor(annotation.type());
     }
 
+    @SuppressWarnings("unused")
     private DescriptorBase doGetDescriptor(final Class<?> type, final FxDefaultStage annotation) {
         return getDefaultStageDescriptor(annotation.modality(), annotation.resizable());
     }

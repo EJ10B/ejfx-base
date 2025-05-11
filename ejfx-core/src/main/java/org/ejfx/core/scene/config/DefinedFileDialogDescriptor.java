@@ -6,7 +6,7 @@ import org.ejfx.core.util.Arguments;
 
 import java.util.List;
 
-public class DefinedFileDialogDescriptor extends FileDialogDescriptorBase {
+public final class DefinedFileDialogDescriptor extends FileDialogDescriptorBase {
 
     private final FileDialogType type;
 

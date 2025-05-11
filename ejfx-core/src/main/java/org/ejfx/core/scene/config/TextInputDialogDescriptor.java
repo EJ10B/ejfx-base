@@ -2,7 +2,7 @@ package org.ejfx.core.scene.config;
 
 import org.ejfx.core.stage.Modality;
 
-public class TextInputDialogDescriptor extends DialogDescriptorBase<Modality> {
+public final class TextInputDialogDescriptor extends DialogDescriptorBase<Modality> {
 
     private TextInputDialogDescriptor(final String name,
                                       final Modality modality,

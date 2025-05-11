@@ -1,4 +1,4 @@
-package $org.ejfx;
+package org.ejfx;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

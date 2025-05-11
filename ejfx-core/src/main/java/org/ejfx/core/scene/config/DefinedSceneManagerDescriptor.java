@@ -4,7 +4,7 @@ import org.ejfx.core.util.Arguments;
 
 import java.util.Map;
 
-public class DefinedSceneManagerDescriptor {
+public final class DefinedSceneManagerDescriptor {
 
     private final Map<String, DefinedSceneDescriptor> sceneDescriptors;
 
