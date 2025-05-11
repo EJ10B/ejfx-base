@@ -1,9 +1,9 @@
 <archetype>
     <id>ejfx</id>
     <sources>
-        <source>src/main/java/App.java</source>
+        <source>src/main/java/org/ejfx/App.java</source>
     </sources>
     <testSources>
-        <source>src/test/java/AppTest.java</source>
+        <source>src/test/java/org/ejfx/AppTest.java</source>
     </testSources>
 </archetype>
