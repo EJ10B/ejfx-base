@@ -27,25 +27,15 @@ public class SceneManagerDescriptorLoader<T> extends SceneManagerDescriptorLoade
 
     @Override
     protected DescriptorBase getDescriptor(final Class<?> type, final Annotation annotation) {
-        final DescriptorBase result;
-
-        if (annotation instanceof FxScene) {
-            result = doGetDescriptor(type, (FxScene) annotation);
-        } else if (annotation instanceof FxDialog) {
-            result = doGetDescriptor(type, (FxDialog) annotation);
-        } else if (annotation instanceof FxFileDialog) {
-            result = doGetDescriptor(type, (FxFileDialog) annotation);
-        } else if (annotation instanceof FxDefaultDialog) {
-            result = doGetDescriptor(type, (FxDefaultDialog) annotation);
-        } else if (annotation instanceof FxDefaultFileDialog) {
-            result = doGetDescriptor(type, (FxDefaultFileDialog) annotation);
-        } else if (annotation instanceof FxDefaultStage) {
-            result = doGetDescriptor(type, (FxDefaultStage) annotation);
-        } else {
-            result = super.getDescriptor(type, annotation);
-        }
-
-        return result;
+        return switch (annotation) {
+            case final FxScene fxScene -> doGetDescriptor(type, fxScene);
+            case final FxDialog fxDialog -> doGetDescriptor(type, fxDialog);
+            case final FxFileDialog fxFileDialog -> doGetDescriptor(type, fxFileDialog);
+            case final FxDefaultDialog fxDefaultDialog -> doGetDescriptor(type, fxDefaultDialog);
+            case final FxDefaultFileDialog fxDefaultFileDialog -> doGetDescriptor(type, fxDefaultFileDialog);
+            case final FxDefaultStage fxDefaultStage -> doGetDescriptor(type, fxDefaultStage);
+            case null, default -> super.getDescriptor(type, annotation);
+        };
     }
 
     @Override
@@ -57,19 +47,12 @@ public class SceneManagerDescriptorLoader<T> extends SceneManagerDescriptorLoade
 
     @Override
     protected List<DescriptorBase> getDescriptors(final Class<?> type, final Annotation annotation) {
-        final List<DescriptorBase> result;
-
-        if (annotation instanceof FxScenes) {
-            result = doGetDescriptors(type, ((FxScenes) annotation).value());
-        } else if (annotation instanceof FxDialogs) {
-            result = doGetDescriptors(type, ((FxDialogs) annotation).value());
-        } else if (annotation instanceof FxFileDialogs) {
-            result = doGetDescriptors(type, ((FxFileDialogs) annotation).value());
-        } else {
-            result = super.getDescriptors(type, annotation);
-        }
-
-        return result;
+        return switch (annotation) {
+            case final FxScenes fxScenes -> doGetDescriptors(type, fxScenes.value());
+            case final FxDialogs fxDialogs -> doGetDescriptors(type, fxDialogs.value());
+            case final FxFileDialogs fxFileDialogs -> doGetDescriptors(type, fxFileDialogs.value());
+            case null, default -> super.getDescriptors(type, annotation);
+        };
     }
 
     @Override

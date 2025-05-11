@@ -3,7 +3,7 @@ package org.ejfx.core.function;
 public abstract class FunctionFactoryBase<S, F> implements FunctionFactory<S, F> {
 
     protected FunctionFactoryBase() {
-        // do nothing
+        // no-op
     }
 
     @Override

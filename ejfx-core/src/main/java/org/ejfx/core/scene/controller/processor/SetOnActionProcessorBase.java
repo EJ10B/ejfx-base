@@ -18,16 +18,13 @@ public abstract class SetOnActionProcessorBase<T, D extends FieldDescriptorBase<
     protected abstract EventHandler<ActionEvent> getOnAction(T controller, D descriptor);
 
     private void doSetOnAction(final Object ctrl, final EventHandler<ActionEvent> handler) {
-        if (ctrl instanceof ButtonBase) {
-            ((ButtonBase) ctrl).setOnAction(handler);
-        } else if (ctrl instanceof MenuItem) {
-            ((MenuItem) ctrl).setOnAction(handler);
-        } else if (ctrl instanceof ContextMenu) {
-            ((ContextMenu) ctrl).setOnAction(handler);
-        } else if (ctrl instanceof TextField) {
-            ((TextField) ctrl).setOnAction(handler);
-        } else {
-            throw new IllegalStateException(String.format("Unable set on action handler - unknown [%s] control.", ctrl));
+        switch (ctrl) {
+            case final ButtonBase buttonBase -> buttonBase.setOnAction(handler);
+            case final MenuItem menuItem -> menuItem.setOnAction(handler);
+            case final ContextMenu contextMenu -> contextMenu.setOnAction(handler);
+            case final TextField textField -> textField.setOnAction(handler);
+            case null, default ->
+                    throw new IllegalStateException(String.format("Unable set on action handler - unknown [%s] control.", ctrl));
         }
     }
 

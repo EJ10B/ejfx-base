@@ -10,7 +10,7 @@ public final class SetterFactory<T> extends FunctionFactoryBase<Method, Setter<T
 
     @Override
     protected void setAccessible(final Method method) {
-        // do nothing
+        // no-op
     }
 
     @SuppressWarnings("unchecked")
