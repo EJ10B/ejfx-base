@@ -34,7 +34,7 @@ public final class MethodHandlerFactory<T> extends FunctionFactoryBase<Method, H
 
             result = (Handler<T, ?>) callSite.getTarget().invokeExact();
         } catch (final Exception _) {
-            // do nothing
+            // no-op
         } catch (final Throwable t) {
             throw new RuntimeException(t);
         }

@@ -5,6 +5,7 @@ import org.ejfx.core.function.FunctionFactoryBase;
 import java.lang.invoke.*;
 import java.lang.reflect.Method;
 
+@SuppressWarnings("unused")
 public final class MethodGetterFactory<T> extends FunctionFactoryBase<Method, Getter<T, ?>> {
 
     private MethodGetterFactory() {
@@ -34,7 +35,7 @@ public final class MethodGetterFactory<T> extends FunctionFactoryBase<Method, Ge
 
             result = (Getter<T, ?>) callSite.getTarget().invokeExact();
         } catch (final Exception _) {
-            // do nothing
+            // no-op
         } catch (final Throwable t) {
             throw new RuntimeException(t);
         }

@@ -74,15 +74,10 @@ public abstract class ControllerDescriptorLoaderBase<T> extends DescriptorLoader
 
     @Override
     protected DescriptorBase<T> getDescriptor(final Method method, final Annotation annotation) {
-        final DescriptorBase<T> result;
-
-        if (annotation instanceof FxCreator) {
-            result = doGetCreatorDescriptor(method, (FxCreator) annotation);
-        } else {
-            result = super.getDescriptor(method, annotation);
-        }
-
-        return result;
+        return switch (annotation) {
+            case FxCreator fxCreator -> doGetCreatorDescriptor(method, fxCreator);
+            case null, default -> super.getDescriptor(method, annotation);
+        };
     }
 
     @Override
@@ -90,6 +85,7 @@ public abstract class ControllerDescriptorLoaderBase<T> extends DescriptorLoader
         return List.of();
     }
 
+    @SuppressWarnings("unused")
     private DescriptorBase<T> doGetCreatorDescriptor(final Method method, final FxCreator annotation) {
         return CreatorDescriptor.of(doGetCreator(method));
     }
@@ -130,8 +126,8 @@ public abstract class ControllerDescriptorLoaderBase<T> extends DescriptorLoader
                 try {
                     result = type.getDeclaredMethod(name, parameterTypes);
                     break;
-                } catch (final NoSuchMethodException e) {
-                    // do nothing
+                } catch (final NoSuchMethodException _) {
+                    // no-op
                 }
             }
         }

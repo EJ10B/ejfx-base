@@ -12,7 +12,7 @@ public final class MethodCreatorFactory<T> extends FunctionFactoryBase<Method, C
 
     @Override
     protected void setAccessible(final Method method) {
-        // do nothing
+        // no-op
     }
 
     @Override

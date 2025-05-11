@@ -5,6 +5,7 @@ import org.ejfx.core.function.FunctionFactoryBase;
 import java.lang.invoke.*;
 import java.lang.reflect.Method;
 
+@SuppressWarnings("unused")
 public final class MethodConsumerFactory<T> extends FunctionFactoryBase<Method, Consumer<T, ?>> {
 
     private MethodConsumerFactory() {
@@ -33,7 +34,7 @@ public final class MethodConsumerFactory<T> extends FunctionFactoryBase<Method, 
 
             result = (Consumer<T, ?>) callSite.getTarget().invokeExact();
         } catch (final Exception _) {
-            // do nothing
+            // no-op
         } catch (final Throwable t) {
             throw new RuntimeException(t);
         }

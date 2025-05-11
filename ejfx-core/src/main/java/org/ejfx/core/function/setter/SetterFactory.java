@@ -5,6 +5,7 @@ import org.ejfx.core.function.FunctionFactoryBase;
 import java.lang.invoke.*;
 import java.lang.reflect.Method;
 
+@SuppressWarnings("unused")
 public final class SetterFactory<T> extends FunctionFactoryBase<Method, Setter<T, ?>> {
 
     @Override
@@ -30,7 +31,7 @@ public final class SetterFactory<T> extends FunctionFactoryBase<Method, Setter<T
 
             result = (Setter<T, ?>) callSite.getTarget().invokeExact();
         } catch (final Exception _) {
-            // do nothing
+            // no-op
         } catch (final Throwable t) {
             throw new RuntimeException(t);
         }

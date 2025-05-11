@@ -5,11 +5,12 @@ import org.ejfx.core.function.FunctionFactoryBase;
 import java.lang.invoke.*;
 import java.lang.reflect.Method;
 
+@SuppressWarnings("unused")
 public final class MethodValidatorFactory<T> extends FunctionFactoryBase<Method, Validator<T>> {
 
     @Override
     protected void setAccessible(final Method method) {
-        // do nothing
+        // no-op
     }
 
     @SuppressWarnings("unchecked")
@@ -30,7 +31,7 @@ public final class MethodValidatorFactory<T> extends FunctionFactoryBase<Method,
 
             result = (Validator<T>) callSite.getTarget().invokeExact();
         } catch (final Exception _) {
-            // do nothing
+            // no-op
         } catch (final Throwable t) {
             throw new RuntimeException(t);
         }
