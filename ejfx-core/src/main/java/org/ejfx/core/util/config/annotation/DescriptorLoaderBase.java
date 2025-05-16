@@ -94,16 +94,12 @@ public abstract class DescriptorLoaderBase<T, E, V> {
                 final ArrayList<E> descriptors = new ArrayList<>(length);
 
                 for (final Annotation annotation : annotations) {
-                    try {
-                        final Class<? extends Annotation> annotationType = annotation.annotationType();
+                    final Class<? extends Annotation> annotationType = annotation.annotationType();
 
-                        if (annotationTypes.contains(annotationType)) {
-                            descriptors.add(getDescriptor(type, annotation));
-                        } else if (repeatableAnnotationTypes.contains(annotationType)) {
-                            descriptors.addAll(getDescriptors(type, annotation));
-                        }
-                    } catch (final Exception _) {
-                        // no-op
+                    if (annotationTypes.contains(annotationType)) {
+                        descriptors.add(getDescriptor(type, annotation));
+                    } else if (repeatableAnnotationTypes.contains(annotationType)) {
+                        descriptors.addAll(getDescriptors(type, annotation));
                     }
                 }
 
@@ -131,16 +127,12 @@ public abstract class DescriptorLoaderBase<T, E, V> {
                     final Annotation[] annotations = field.getDeclaredAnnotations();
 
                     for (final Annotation annotation : annotations) {
-                        try {
-                            final Class<? extends Annotation> annotationType = annotation.annotationType();
+                        final Class<? extends Annotation> annotationType = annotation.annotationType();
 
-                            if (annotationTypes.contains(annotationType)) {
-                                descriptors.add(getDescriptor(field, annotation));
-                            } else if (repeatableAnnotationTypes.contains(annotationType)) {
-                                descriptors.addAll(getDescriptors(field, annotation));
-                            }
-                        } catch (final Exception _) {
-                            // no-op
+                        if (annotationTypes.contains(annotationType)) {
+                            descriptors.add(getDescriptor(field, annotation));
+                        } else if (repeatableAnnotationTypes.contains(annotationType)) {
+                            descriptors.addAll(getDescriptors(field, annotation));
                         }
                     }
                 }
@@ -169,16 +161,12 @@ public abstract class DescriptorLoaderBase<T, E, V> {
                     final Annotation[] annotations = method.getDeclaredAnnotations();
 
                     for (final Annotation annotation : annotations) {
-                        try {
-                            final Class<? extends Annotation> annotationType = annotation.annotationType();
+                        final Class<? extends Annotation> annotationType = annotation.annotationType();
 
-                            if (annotationTypes.contains(annotationType)) {
-                                descriptors.add(getDescriptor(method, annotation));
-                            } else if (repeatableAnnotationTypes.contains(annotationType)) {
-                                descriptors.addAll(getDescriptors(method, annotation));
-                            }
-                        } catch (final Exception _) {
-                            // no-op
+                        if (annotationTypes.contains(annotationType)) {
+                            descriptors.add(getDescriptor(method, annotation));
+                        } else if (repeatableAnnotationTypes.contains(annotationType)) {
+                            descriptors.addAll(getDescriptors(method, annotation));
                         }
                     }
                 }
