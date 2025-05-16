@@ -50,6 +50,7 @@ public abstract class DescriptorLoaderBase<T, E, V> {
         throw new IllegalStateException(String.format("Unable get descriptor - unknown [%s] field annotation.", annotation));
     }
 
+    @SuppressWarnings("unused")
     protected List<E> getDescriptors(final Field field, final Annotation annotation) {
         throw new IllegalStateException(String.format("Unable get descriptors - unknown [%s] field annotation.", annotation));
     }
@@ -58,6 +59,7 @@ public abstract class DescriptorLoaderBase<T, E, V> {
         throw new IllegalStateException(String.format("Unable get descriptor - unknown [%s] method annotation.", annotation));
     }
 
+    @SuppressWarnings("unused")
     protected List<? extends E> getDescriptors(final Method method, final Annotation annotation) {
         throw new IllegalStateException(String.format("Unable get descriptors - unknown [%s] method annotation.", annotation));
     }
@@ -68,84 +70,121 @@ public abstract class DescriptorLoaderBase<T, E, V> {
         if (!Object.class.equals(type)) {
             final ArrayList<E> descriptors = new ArrayList<>(doGetDescriptors(type.getSuperclass()));
 
-            { // process class annotation
-                final List<Class<? extends Annotation>> annotationTypes = getClassAnnotationTypes(type);
-                final List<Class<? extends Annotation>> repeatableAnnotationTypes = getClassRepeatableAnnotationTypes(type);
+            descriptors.addAll(doGetClassAnnotationDescriptors(type));
+            descriptors.addAll(doGetFieldAnnotationDescriptors(type));
+            descriptors.addAll(doGetMethodAnnotationDescriptors(type));
 
-                if (!(annotationTypes.isEmpty() && repeatableAnnotationTypes.isEmpty())) {
-                    final Annotation[] annotations = type.getDeclaredAnnotations();
+            result = descriptors;
+        }
+
+        return result;
+    }
+
+    private List<E> doGetClassAnnotationDescriptors(final Class<?> type) {
+        List<E> result = List.of();
+
+        final List<Class<? extends Annotation>> annotationTypes = getClassAnnotationTypes(type);
+        final List<Class<? extends Annotation>> repeatableAnnotationTypes = getClassRepeatableAnnotationTypes(type);
+
+        if (!(annotationTypes.isEmpty() && repeatableAnnotationTypes.isEmpty())) {
+            final Annotation[] annotations = type.getDeclaredAnnotations();
+            final int length = annotations.length;
+
+            if (length > 0) {
+                final ArrayList<E> descriptors = new ArrayList<>(length);
+
+                for (final Annotation annotation : annotations) {
+                    try {
+                        final Class<? extends Annotation> annotationType = annotation.annotationType();
+
+                        if (annotationTypes.contains(annotationType)) {
+                            descriptors.add(getDescriptor(type, annotation));
+                        } else if (repeatableAnnotationTypes.contains(annotationType)) {
+                            descriptors.addAll(getDescriptors(type, annotation));
+                        }
+                    } catch (final Exception _) {
+                        // no-op
+                    }
+                }
+
+                result = descriptors;
+            }
+        }
+
+        return result;
+    }
+
+    private List<E> doGetFieldAnnotationDescriptors(Class<?> type) {
+        List<E> result = List.of();
+
+        final List<Class<? extends Annotation>> annotationTypes = getFieldAnnotationTypes(type);
+        final List<Class<? extends Annotation>> repeatableAnnotationTypes = getFieldRepeatableAnnotationTypes(type);
+
+        if (!(annotationTypes.isEmpty() && repeatableAnnotationTypes.isEmpty())) {
+            final Field[] fields = type.getDeclaredFields();
+            final int length = fields.length;
+
+            if (length > 0) {
+                final ArrayList<E> descriptors = new ArrayList<>();
+
+                for (final Field field : fields) {
+                    final Annotation[] annotations = field.getDeclaredAnnotations();
 
                     for (final Annotation annotation : annotations) {
                         try {
                             final Class<? extends Annotation> annotationType = annotation.annotationType();
 
                             if (annotationTypes.contains(annotationType)) {
-                                descriptors.add(getDescriptor(type, annotation));
+                                descriptors.add(getDescriptor(field, annotation));
                             } else if (repeatableAnnotationTypes.contains(annotationType)) {
-                                descriptors.addAll(getDescriptors(type, annotation));
+                                descriptors.addAll(getDescriptors(field, annotation));
                             }
                         } catch (final Exception _) {
-                            // ignored
+                            // no-op
                         }
                     }
                 }
+
+                result = descriptors;
             }
+        }
 
-            { // process fields annotation
-                final List<Class<? extends Annotation>> annotationTypes = getFieldAnnotationTypes(type);
-                final List<Class<? extends Annotation>> repeatableAnnotationTypes = getFieldRepeatableAnnotationTypes(type);
+        return result;
+    }
 
-                if (!(annotationTypes.isEmpty() && repeatableAnnotationTypes.isEmpty())) {
-                    final Field[] fields = type.getDeclaredFields();
+    private List<E> doGetMethodAnnotationDescriptors(Class<?> type) {
+        List<E> result = List.of();
 
-                    for (final Field field : fields) {
-                        final Annotation[] annotations = field.getDeclaredAnnotations();
+        final List<Class<? extends Annotation>> annotationTypes = getMethodAnnotationTypes(type);
+        final List<Class<? extends Annotation>> repeatableAnnotationTypes = getMethodRepeatableAnnotationTypes(type);
 
-                        for (final Annotation annotation : annotations) {
-                            try {
-                                final Class<? extends Annotation> annotationType = annotation.annotationType();
+        if (!(annotationTypes.isEmpty() && repeatableAnnotationTypes.isEmpty())) {
+            final Method[] methods = type.getDeclaredMethods();
+            final int length = methods.length;
 
-                                if (annotationTypes.contains(annotationType)) {
-                                    descriptors.add(getDescriptor(field, annotation));
-                                } else if (repeatableAnnotationTypes.contains(annotationType)) {
-                                    descriptors.addAll(getDescriptors(field, annotation));
-                                }
-                            } catch (final Exception _) {
-                                // ignored
+            if (length > 0) {
+                final ArrayList<E> descriptors = new ArrayList<>();
+
+                for (final Method method : methods) {
+                    final Annotation[] annotations = method.getDeclaredAnnotations();
+
+                    for (final Annotation annotation : annotations) {
+                        try {
+                            final Class<? extends Annotation> annotationType = annotation.annotationType();
+
+                            if (annotationTypes.contains(annotationType)) {
+                                descriptors.add(getDescriptor(method, annotation));
+                            } else if (repeatableAnnotationTypes.contains(annotationType)) {
+                                descriptors.addAll(getDescriptors(method, annotation));
                             }
+                        } catch (final Exception _) {
+                            // no-op
                         }
                     }
                 }
+
+                result = descriptors;
             }
-
-            { // process methods annotation
-                final List<Class<? extends Annotation>> annotationTypes = getMethodAnnotationTypes(type);
-                final List<Class<? extends Annotation>> repeatableAnnotationTypes = getMethodRepeatableAnnotationTypes(type);
-
-                if (!(annotationTypes.isEmpty() && repeatableAnnotationTypes.isEmpty())) {
-                    final Method[] methods = type.getDeclaredMethods();
-
-                    for (final Method method : methods) {
-                        final Annotation[] annotations = method.getDeclaredAnnotations();
-
-                        for (final Annotation annotation : annotations) {
-                            try {
-                                final Class<? extends Annotation> annotationType = annotation.annotationType();
-
-                                if (annotationTypes.contains(annotationType)) {
-                                    descriptors.add(getDescriptor(method, annotation));
-                                } else if (repeatableAnnotationTypes.contains(annotationType)) {
-                                    descriptors.addAll(getDescriptors(method, annotation));
-                                }
-                            } catch (final Exception _) {
-                                // ignored
-                            }
-                        }
-                    }
-                }
-            }
-
-            result = descriptors;
         }
 
         return result;
