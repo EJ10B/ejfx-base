@@ -9,13 +9,13 @@ import java.util.Map;
 
 public final class Arguments {
 
-    private static final String REQUIRE_NON_NULL = "The %s' can not be null.";
+    private static final String REQUIRE_NON_NULL = "The argument '%s' can not be null.";
 
-    private static final String REQUIRE_NON_EMPTY = "The %s' can not be null or empty.";
+    private static final String REQUIRE_NON_EMPTY = "The argument '%s' can not be null or empty.";
 
-    // private static final String REQUIRE_INSTANCE_OF = "The %s' can not be null or not instance of '%s'.";
+    // private static final String REQUIRE_INSTANCE_OF = "The argument '%s' can not be null or not instance of '%s'.";
 
-    private static final String REQUIRE_DEFINED = "The %s' can not be null or not defined.";
+    private static final String REQUIRE_DEFINED = "The argument '%s' can not be null or not defined.";
 
     private Arguments() {
         // no-op

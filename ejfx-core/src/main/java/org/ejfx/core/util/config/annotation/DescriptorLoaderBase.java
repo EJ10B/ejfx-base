@@ -110,7 +110,7 @@ public abstract class DescriptorLoaderBase<T, E, V> {
         return result;
     }
 
-    private List<E> doGetFieldAnnotationDescriptors(Class<?> type) {
+    private List<E> doGetFieldAnnotationDescriptors(final Class<?> type) {
         List<E> result = List.of();
 
         final List<Class<? extends Annotation>> annotationTypes = getFieldAnnotationTypes(type);
@@ -144,7 +144,7 @@ public abstract class DescriptorLoaderBase<T, E, V> {
         return result;
     }
 
-    private List<E> doGetMethodAnnotationDescriptors(Class<?> type) {
+    private List<E> doGetMethodAnnotationDescriptors(final Class<?> type) {
         List<E> result = List.of();
 
         final List<Class<? extends Annotation>> annotationTypes = getMethodAnnotationTypes(type);
