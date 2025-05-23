@@ -22,8 +22,10 @@ import org.ejfx.core.scene.controller.ControllerManager;
 import org.ejfx.core.stage.DialogType;
 import org.ejfx.core.stage.FileDialogType;
 import org.ejfx.core.util.Arguments;
+import org.ejfx.core.util.resources.ModuleResourcesResolver;
 
 import java.io.File;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Collection;
@@ -363,9 +365,13 @@ public abstract class SceneManagerBase<A> {
     }
 
     private void doShowScene(final DefinedSceneDescriptor descriptor, final Object... values) throws Exception {
-        final FXMLLoader loader = new FXMLLoader(application.getClass().getResource(descriptor.getLocation()));
+        final FXMLLoader loader = new FXMLLoader();
         loader.setControllerFactory((type) -> doCreateController(type, descriptor, values));
-        final Parent parent = loader.load();
+        final Parent parent;
+
+        try (final InputStream stream = ModuleResourcesResolver.of(application).getFXMLAsStream(descriptor.getLocation())) {
+            parent = loader.load(stream);
+        }
 
         final Object controller = loader.getController();
         doProcessController(controller);
