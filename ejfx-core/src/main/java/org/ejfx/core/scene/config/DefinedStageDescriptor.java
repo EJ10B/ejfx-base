@@ -11,10 +11,20 @@ public final class DefinedStageDescriptor {
 
     private final boolean resizable;
 
-    private DefinedStageDescriptor(final Modality modality, final String title, final boolean resizable) {
+    private final boolean maximized;
+
+    private final boolean iconified;
+
+    private DefinedStageDescriptor(final Modality modality,
+                                   final String title,
+                                   final boolean resizable,
+                                   final boolean maximized,
+                                   final boolean iconified) {
         this.modality = Arguments.requireNonNull(modality, "modality");
         this.title = Arguments.requireNonNull(title, "title");
         this.resizable = resizable;
+        this.maximized = maximized;
+        this.iconified = iconified;
     }
 
     public Modality getModality() {
@@ -29,8 +39,20 @@ public final class DefinedStageDescriptor {
         return resizable;
     }
 
-    public static DefinedStageDescriptor of(final Modality modality, final String title, final boolean resizable) {
-        return new DefinedStageDescriptor(modality, title, resizable);
+    public boolean isMaximized() {
+        return maximized;
+    }
+
+    public boolean isIconified() {
+        return iconified;
+    }
+
+    public static DefinedStageDescriptor of(final Modality modality,
+                                            final String title,
+                                            final boolean resizable,
+                                            final boolean maximized,
+                                            final boolean iconified) {
+        return new DefinedStageDescriptor(modality, title, resizable, maximized, iconified);
     }
 
 }

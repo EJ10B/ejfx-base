@@ -13,4 +13,8 @@ public @interface FxStage {
 
     Boolean resizable() default Boolean.DEFAULT;
 
+    Boolean maximized() default Boolean.DEFAULT;
+
+    Boolean iconified() default Boolean.DEFAULT;
+
 }

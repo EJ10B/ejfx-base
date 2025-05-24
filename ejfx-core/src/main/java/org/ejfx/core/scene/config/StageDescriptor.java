@@ -12,10 +12,20 @@ public final class StageDescriptor {
 
     private final Boolean resizable;
 
-    private StageDescriptor(final Modality modality, final String title, final Boolean resizable) {
+    private final Boolean maximized;
+
+    private final Boolean iconified;
+
+    private StageDescriptor(final Modality modality,
+                            final String title,
+                            final Boolean resizable,
+                            final Boolean maximized,
+                            final Boolean iconified) {
         this.modality = Arguments.requireNonNull(modality, "modality");
         this.title = Arguments.requireNonNull(title, "title");
         this.resizable = Arguments.requireNonNull(resizable, "resizable");
+        this.maximized = Arguments.requireNonNull(maximized, "maximized");
+        this.iconified = Arguments.requireNonNull(iconified, "iconified");
     }
 
     public Modality getModality() {
@@ -30,14 +40,28 @@ public final class StageDescriptor {
         return resizable;
     }
 
+    public Boolean getMaximized() {
+        return maximized;
+    }
+
+    public Boolean getIconified() {
+        return iconified;
+    }
+
     public DefinedStageDescriptor getDefined(final DefaultStageDescriptor descriptor) {
         return DefinedStageDescriptor.of(Arguments.getDefined(modality, descriptor.getModality()),
                 title,
-                Arguments.getDefined(resizable, descriptor.isResizable()));
+                Arguments.getDefined(resizable, descriptor.isResizable()),
+                Arguments.getDefined(maximized, descriptor.isMaximized()),
+                Arguments.getDefined(iconified, descriptor.isIconified()));
     }
 
-    public static StageDescriptor of(final Modality modality, final String title, final Boolean resizable) {
-        return new StageDescriptor(modality, title, resizable);
+    public static StageDescriptor of(final Modality modality,
+                                     final String title,
+                                     final Boolean resizable,
+                                     final Boolean maximized,
+                                     final Boolean iconified) {
+        return new StageDescriptor(modality, title, resizable, maximized, iconified);
     }
 
 }

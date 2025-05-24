@@ -396,6 +396,8 @@ public abstract class SceneManagerBase<A> {
                 stage.initModality(descriptor.getModality());
                 stage.setTitle(descriptor.getTitle());
                 stage.setResizable(descriptor.isResizable());
+                currentStage.setMaximized(descriptor.isMaximized());
+                currentStage.setIconified(descriptor.isIconified());
 
                 result = stage;
             } else { // stage -> use current
@@ -408,6 +410,8 @@ public abstract class SceneManagerBase<A> {
             if (descriptor != null) { // stage -> init from stage descriptor
                 currentStage.setTitle(descriptor.getTitle());
                 currentStage.setResizable(descriptor.isResizable());
+                currentStage.setMaximized(descriptor.isMaximized());
+                currentStage.setIconified(descriptor.isIconified());
             }
 
             result = currentStage;

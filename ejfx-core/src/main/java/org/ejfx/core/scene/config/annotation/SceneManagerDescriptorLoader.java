@@ -173,7 +173,12 @@ public class SceneManagerDescriptorLoader<T> extends SceneManagerDescriptorLoade
 
         if (annotations != null && annotations.length > 0) {
             final FxStage annotation = annotations[0];
-            result = getStageDescriptor(annotation.modality(), annotation.title(), annotation.resizable());
+
+            result = getStageDescriptor(annotation.modality(),
+                    annotation.title(),
+                    annotation.resizable(),
+                    annotation.maximized(),
+                    annotation.iconified());
         }
 
         return result;
@@ -191,7 +196,10 @@ public class SceneManagerDescriptorLoader<T> extends SceneManagerDescriptorLoade
 
     @SuppressWarnings("unused")
     private DescriptorBase doGetDescriptor(final Class<?> type, final FxDefaultStage annotation) {
-        return getDefaultStageDescriptor(annotation.modality(), annotation.resizable());
+        return getDefaultStageDescriptor(annotation.modality(),
+                annotation.resizable(),
+                annotation.maximized(),
+                annotation.iconified());
     }
 
     public static <T> SceneManagerDescriptorLoader<T> of(final Class<T> type) {
