@@ -86,7 +86,17 @@ public final class Arguments {
     }
 
     public static <T> T getDefined(final Defined<T> value, final Defined<T> defaultValue) {
-        return (value.isDefined()) ? value.getValue() : defaultValue.getValue();
+        final T result;
+
+        if (value != null && value.isDefined()) {
+            result = value.getValue();
+        } else if (defaultValue != null && defaultValue.isDefined()) {
+            result = defaultValue.getValue();
+        } else {
+            throw new IllegalArgumentException(String.format(REQUIRE_DEFINED, "defaultValue"));
+        }
+
+        return result;
     }
 
     public static <E> List<E> copyOf(E obj) {
