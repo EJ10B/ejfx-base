@@ -93,10 +93,16 @@ public abstract class SceneManagerDescriptorLoaderBase<T> extends DescriptorLoad
 
     protected StageDescriptor getStageDescriptor(final Modality modality,
                                                  final String title,
+                                                 final String icon,
                                                  final Boolean resizable,
                                                  final Boolean maximized,
                                                  final Boolean iconified) {
-        return StageDescriptor.of(modality, title, resizable, maximized, iconified);
+        return StageDescriptor.of(modality,
+                title,
+                icon,
+                resizable,
+                maximized,
+                iconified);
     }
 
     protected DescriptorBase getDefaultDialogDescriptor(final DialogType type,
@@ -110,10 +116,12 @@ public abstract class SceneManagerDescriptorLoaderBase<T> extends DescriptorLoad
     }
 
     protected DescriptorBase getDefaultStageDescriptor(final Modality modality,
+                                                       final String icon,
                                                        final Boolean resizable,
                                                        final Boolean maximized,
                                                        final Boolean iconified) {
         return DefaultStageDescriptor.of(modality,
+                icon,
                 resizable,
                 maximized,
                 iconified);

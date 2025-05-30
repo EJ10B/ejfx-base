@@ -11,6 +11,8 @@ public @interface FxStage {
 
     String title() default "";
 
+    String icon() default "";
+
     Boolean resizable() default Boolean.DEFAULT;
 
     Boolean maximized() default Boolean.DEFAULT;
