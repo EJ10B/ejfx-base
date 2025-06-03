@@ -116,11 +116,13 @@ public abstract class SceneManagerDescriptorLoaderBase<T> extends DescriptorLoad
     }
 
     protected DescriptorBase getDefaultStageDescriptor(final Modality modality,
+                                                       final String title,
                                                        final String icon,
                                                        final Boolean resizable,
                                                        final Boolean maximized,
                                                        final Boolean iconified) {
         return DefaultStageDescriptor.of(modality,
+                title,
                 icon,
                 resizable,
                 maximized,

@@ -17,18 +17,14 @@ public final class DefinedStageDescriptor {
 
     private final boolean iconified;
 
-    private DefinedStageDescriptor(final Modality modality,
-                                   final String title,
-                                   final String icon,
-                                   final boolean resizable,
-                                   final boolean maximized,
-                                   final boolean iconified) {
-        this.modality = Arguments.requireNonNull(modality, "modality");
-        this.title = Arguments.requireNonNull(title, "title");
-        this.icon = Arguments.requireNonNull(icon, "icon");
-        this.resizable = resizable;
-        this.maximized = maximized;
-        this.iconified = iconified;
+    public DefinedStageDescriptor(final StageDescriptor descriptor,
+                                  final DefaultStageDescriptor defaultDescriptor) {
+        this.modality = Arguments.getDefined(descriptor.getModality(), defaultDescriptor.getModality());
+        this.title = Arguments.getDefined(descriptor.getTitle(), defaultDescriptor.getTitle());
+        this.icon = Arguments.getDefined(descriptor.getIcon(), defaultDescriptor.getIcon());
+        this.resizable = Arguments.getDefined(descriptor.isResizable(), defaultDescriptor.isResizable());
+        this.maximized = Arguments.getDefined(descriptor.isMaximized(), defaultDescriptor.isMaximized());
+        this.iconified = Arguments.getDefined(descriptor.isIconified(), defaultDescriptor.isIconified());
     }
 
     public Modality getModality() {
@@ -55,18 +51,9 @@ public final class DefinedStageDescriptor {
         return iconified;
     }
 
-    public static DefinedStageDescriptor of(final Modality modality,
-                                            final String title,
-                                            final String icon,
-                                            final boolean resizable,
-                                            final boolean maximized,
-                                            final boolean iconified) {
-        return new DefinedStageDescriptor(modality,
-                title,
-                icon,
-                resizable,
-                maximized,
-                iconified);
+    public static DefinedStageDescriptor of(final StageDescriptor descriptor,
+                                            final DefaultStageDescriptor defaultDescriptor) {
+        return (descriptor != null) ? new DefinedStageDescriptor(descriptor, defaultDescriptor) : null;
     }
 
 }

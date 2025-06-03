@@ -70,7 +70,7 @@ public final class SceneManagerDescriptor {
             final HashMap<String, DefinedSceneDescriptor> descriptors = HashMap.newHashMap(sceneDescriptors.size());
 
             for (final Map.Entry<String, SceneDescriptor> entry : sceneDescriptors.entrySet()) {
-                descriptors.put(entry.getKey(), entry.getValue().getDefined(defaultStageDescriptor));
+                descriptors.put(entry.getKey(), DefinedSceneDescriptor.of(entry.getValue(), defaultStageDescriptor));
             }
 
             result = descriptors;

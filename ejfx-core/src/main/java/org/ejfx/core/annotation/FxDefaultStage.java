@@ -14,6 +14,8 @@ public @interface FxDefaultStage {
 
     Modality modality() default Modality.WINDOW;
 
+    String title() default "";
+
     String icon() default "";
 
     Boolean resizable() default Boolean.FALSE;

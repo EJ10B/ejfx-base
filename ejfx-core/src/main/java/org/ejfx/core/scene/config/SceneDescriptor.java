@@ -39,20 +39,16 @@ public final class SceneDescriptor extends DescriptorBase {
         return controller;
     }
 
-    public DefinedSceneDescriptor getDefined(final DefaultStageDescriptor descriptor) {
-        return DefinedSceneDescriptor.of(getName(),
-                (stageDescriptor != null) ? stageDescriptor.getDefined(descriptor) : null,
-                location,
-                resources,
-                controller);
-    }
-
     public static SceneDescriptor of(final String name,
                                      final StageDescriptor descriptor,
                                      final String location,
                                      final String resources,
                                      final Class<?> controller) {
-        return new SceneDescriptor(name, descriptor, location, resources, controller);
+        return new SceneDescriptor(name,
+                descriptor,
+                location,
+                resources,
+                controller);
     }
 
 }

@@ -3,12 +3,20 @@ package org.ejfx.core.scene.config;
 import org.ejfx.core.stage.Modality;
 import org.ejfx.core.util.Arguments;
 import org.ejfx.core.util.lang.Boolean;
+import org.ejfx.core.util.lang.String;
 
 public final class DefaultStageDescriptor extends DescriptorBase {
 
-    private static final DefaultStageDescriptor DEFAULT = new DefaultStageDescriptor(Modality.WINDOW, "", Boolean.FALSE, Boolean.FALSE, Boolean.FALSE);
+    private static final DefaultStageDescriptor DEFAULT = new DefaultStageDescriptor(Modality.WINDOW,
+            String.EMPTY,
+            String.EMPTY,
+            Boolean.FALSE,
+            Boolean.FALSE,
+            Boolean.FALSE);
 
     private final Modality modality;
+
+    private final String title;
 
     private final String icon;
 
@@ -19,6 +27,7 @@ public final class DefaultStageDescriptor extends DescriptorBase {
     private final Boolean iconified;
 
     private DefaultStageDescriptor(final Modality modality,
+                                   final String title,
                                    final String icon,
                                    final Boolean resizable,
                                    final Boolean maximized,
@@ -26,7 +35,8 @@ public final class DefaultStageDescriptor extends DescriptorBase {
         super();
 
         this.modality = Arguments.requireDefined(modality, "modality");
-        this.icon = icon;
+        this.title = Arguments.requireDefined(title, "title");
+        this.icon = Arguments.requireDefined(icon, "icon");
         this.resizable = Arguments.requireDefined(resizable, "resizable");
         this.maximized = Arguments.requireDefined(maximized, "maximized");
         this.iconified = Arguments.requireDefined(iconified, "iconified");
@@ -34,6 +44,10 @@ public final class DefaultStageDescriptor extends DescriptorBase {
 
     public Modality getModality() {
         return modality;
+    }
+
+    public String getTitle() {
+        return title;
     }
 
     public String getIcon() {
@@ -53,11 +67,17 @@ public final class DefaultStageDescriptor extends DescriptorBase {
     }
 
     public static DefaultStageDescriptor of(final Modality modality,
-                                            final String icon,
+                                            final java.lang.String title,
+                                            final java.lang.String icon,
                                             final Boolean resizable,
                                             final Boolean maximized,
                                             final Boolean iconified) {
-        return new DefaultStageDescriptor(modality, icon, resizable, maximized, iconified);
+        return new DefaultStageDescriptor(modality,
+                String.of(title),
+                String.of(icon),
+                resizable,
+                maximized,
+                iconified);
     }
 
     public static DefaultStageDescriptor of() {

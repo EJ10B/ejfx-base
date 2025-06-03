@@ -3,6 +3,7 @@ package org.ejfx.core.scene.config;
 import org.ejfx.core.stage.Modality;
 import org.ejfx.core.util.Arguments;
 import org.ejfx.core.util.lang.Boolean;
+import org.ejfx.core.util.lang.String;
 
 public final class StageDescriptor {
 
@@ -48,32 +49,23 @@ public final class StageDescriptor {
         return resizable;
     }
 
-    public Boolean getMaximized() {
+    public Boolean isMaximized() {
         return maximized;
     }
 
-    public Boolean getIconified() {
+    public Boolean isIconified() {
         return iconified;
     }
 
-    public DefinedStageDescriptor getDefined(final DefaultStageDescriptor descriptor) {
-        return DefinedStageDescriptor.of(Arguments.getDefined(modality, descriptor.getModality()),
-                title,
-                (icon != null) ? icon : descriptor.getIcon(),
-                Arguments.getDefined(resizable, descriptor.isResizable()),
-                Arguments.getDefined(maximized, descriptor.isMaximized()),
-                Arguments.getDefined(iconified, descriptor.isIconified()));
-    }
-
     public static StageDescriptor of(final Modality modality,
-                                     final String title,
-                                     final String icon,
+                                     final java.lang.String title,
+                                     final java.lang.String icon,
                                      final Boolean resizable,
                                      final Boolean maximized,
                                      final Boolean iconified) {
         return new StageDescriptor(modality,
-                title,
-                icon,
+                String.of(title),
+                String.of(icon),
                 resizable,
                 maximized,
                 iconified);
