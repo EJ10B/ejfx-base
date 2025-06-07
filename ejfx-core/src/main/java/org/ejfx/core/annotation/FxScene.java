@@ -9,7 +9,7 @@ public @interface FxScene {
 
     String name();
 
-    String location();
+    String fxml();
 
     String resources() default "";
 

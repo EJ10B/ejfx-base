@@ -4,7 +4,7 @@ public final class SceneDescriptor extends DescriptorBase {
 
     private final StageDescriptor stageDescriptor;
 
-    private final String location;
+    private final String fxml;
 
     private final String resources;
 
@@ -12,13 +12,13 @@ public final class SceneDescriptor extends DescriptorBase {
 
     private SceneDescriptor(final String name,
                             final StageDescriptor stageDescriptor,
-                            final String location,
+                            final String fxml,
                             final String resources,
                             final Class<?> controller) {
         super(name);
 
         this.stageDescriptor = stageDescriptor;
-        this.location = location;
+        this.fxml = fxml;
         this.resources = resources;
         this.controller = controller;
     }
@@ -27,8 +27,8 @@ public final class SceneDescriptor extends DescriptorBase {
         return stageDescriptor;
     }
 
-    public String getLocation() {
-        return location;
+    public String getFXML() {
+        return fxml;
     }
 
     public String getResources() {
@@ -41,12 +41,12 @@ public final class SceneDescriptor extends DescriptorBase {
 
     public static SceneDescriptor of(final String name,
                                      final StageDescriptor descriptor,
-                                     final String location,
+                                     final String fxml,
                                      final String resources,
                                      final Class<?> controller) {
         return new SceneDescriptor(name,
                 descriptor,
-                location,
+                fxml,
                 resources,
                 controller);
     }

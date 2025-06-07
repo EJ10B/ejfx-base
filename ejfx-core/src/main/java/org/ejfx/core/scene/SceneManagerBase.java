@@ -369,7 +369,7 @@ public abstract class SceneManagerBase<A> {
         loader.setControllerFactory((type) -> doCreateController(type, descriptor, values));
         final Parent parent;
 
-        try (final InputStream stream = ModuleResourcesResolver.of(application).getFXMLAsStream(descriptor.getLocation())) {
+        try (final InputStream stream = ModuleResourcesResolver.of(application).getFXMLAsStream(descriptor.getFXML())) {
             parent = loader.load(stream);
         }
 
