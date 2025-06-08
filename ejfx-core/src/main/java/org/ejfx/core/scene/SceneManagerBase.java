@@ -14,22 +14,20 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import org.ejfx.core.controller.ControllerBase;
-import org.ejfx.core.scene.config.DefinedDialogDescriptor;
-import org.ejfx.core.scene.config.DefinedFileDialogDescriptor;
-import org.ejfx.core.scene.config.DefinedSceneDescriptor;
-import org.ejfx.core.scene.config.DefinedStageDescriptor;
+import org.ejfx.core.scene.config.*;
 import org.ejfx.core.scene.controller.ControllerManager;
 import org.ejfx.core.stage.DialogType;
 import org.ejfx.core.stage.FileDialogType;
 import org.ejfx.core.util.Arguments;
 import org.ejfx.core.util.resources.ModuleResourcesResolver;
+import org.ejfx.core.util.resources.ResourcesResolver;
 
 import java.io.File;
-import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Collection;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 public abstract class SceneManagerBase<A> {
@@ -46,11 +44,14 @@ public abstract class SceneManagerBase<A> {
 
     private final Stage primaryStage;
 
+    private final ResourcesResolver resolver;
+
     private Scene currentScene;
 
     protected SceneManagerBase(final A application, final Stage primaryStage) {
         this.application = Arguments.requireNonNull(application, "application");
         this.primaryStage = Arguments.requireNonNull(primaryStage, "primaryStage");
+        this.resolver = ModuleResourcesResolver.of(application);
         this.currentScene = null;
     }
 
@@ -171,9 +172,7 @@ public abstract class SceneManagerBase<A> {
     }
 
     public void showScene(final String name) {
-        final DefinedSceneDescriptor descriptor = doGetSceneDescriptor(name);
-
-        try {
+        try (final ResolvedSceneDescriptor descriptor = doGetSceneDescriptor(name)) {
             doShowScene(descriptor);
         } catch (final Exception e) {
             throw new IllegalStateException(String.format("Unable show scene for [%s] name.", name), e);
@@ -181,9 +180,7 @@ public abstract class SceneManagerBase<A> {
     }
 
     public <E> void showScene(final String name, final E value) {
-        final DefinedSceneDescriptor descriptor = doGetSceneDescriptor(name);
-
-        try {
+        try (final ResolvedSceneDescriptor descriptor = doGetSceneDescriptor(name)) {
             doShowScene(descriptor, value);
         } catch (final Exception e) {
             throw new IllegalStateException(String.format("Unable show scene for [%s] name with [%s] value.", name, value), e);
@@ -227,10 +224,13 @@ public abstract class SceneManagerBase<A> {
         return Arguments.requireNonNull(descriptor, String.format("Unable get file dialog descriptor for [%s] name.", name));
     }
 
-    private DefinedSceneDescriptor doGetSceneDescriptor(final String name) {
-        final DefinedSceneDescriptor descriptor = getSceneDescriptor(name);
+    private ResolvedSceneDescriptor doGetSceneDescriptor(final String name) {
+        final DefinedSceneDescriptor descriptor = Arguments.requireNonNull(getSceneDescriptor(name),
+                String.format("Unable get scene descriptor for [%s] name.", name));
 
-        return Arguments.requireNonNull(descriptor, String.format("Unable get scene descriptor for [%s] name.", name));
+        return ResolvedSceneDescriptor.of(descriptor,
+                resolver,
+                Locale.ROOT);
     }
 
     private void doHandleOnCloseRequest(final WindowEvent event) {
@@ -364,15 +364,11 @@ public abstract class SceneManagerBase<A> {
         return result;
     }
 
-    private void doShowScene(final DefinedSceneDescriptor descriptor, final Object... values) throws Exception {
+    private void doShowScene(final ResolvedSceneDescriptor descriptor, final Object... values) throws Exception {
         final FXMLLoader loader = new FXMLLoader();
         loader.setControllerFactory((type) -> doCreateController(type, descriptor, values));
-        final Parent parent;
-
-        try (final InputStream stream = ModuleResourcesResolver.of(application).getFXMLAsStream(descriptor.getFXML())) {
-            parent = loader.load(stream);
-        }
-
+        loader.setResources(descriptor.getResources());
+        final Parent parent = loader.load(descriptor.getFXMLAsStream());
         final Object controller = loader.getController();
         doProcessController(controller);
 
@@ -384,7 +380,7 @@ public abstract class SceneManagerBase<A> {
         currentScene = scene;
     }
 
-    private Stage doGetStage(final DefinedStageDescriptor descriptor) {
+    private Stage doGetStage(final ResolvedStageDescriptor descriptor) {
         final Stage result;
         final Stage currentStage = doGetCurrentStage();
 
@@ -420,7 +416,7 @@ public abstract class SceneManagerBase<A> {
         return result;
     }
 
-    private <T> T doCreateController(final Class<?> type, final DefinedSceneDescriptor descriptor, final Object... values) {
+    private <T> T doCreateController(final Class<?> type, final ResolvedSceneDescriptor descriptor, final Object... values) {
         final Class<?> controller = descriptor.getController();
         final ControllerManager<T> manager =
                 (Object.class.equals(controller)) ? getControllerManager(type) : getControllerManager(controller);

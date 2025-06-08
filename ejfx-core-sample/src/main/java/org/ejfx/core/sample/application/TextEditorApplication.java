@@ -24,7 +24,7 @@ import org.ejfx.core.util.lang.Boolean;
 @FxFileDialog(name = "saveTextFile", type = FileDialogType.SAVE_FILE, title = "Save text file", filters = @FxExtensionFilter(description = "Text file (*.txt)", extensions = "*.txt"))
 
 @FxDefaultStage(resizable = Boolean.TRUE)
-@FxScene(name = "main", fxml = "/text-editor.fxml", stage = @FxStage(modality = Modality.APPLICATION, title = "Text editor"))
+@FxScene(name = "main", fxml = "/text-editor.fxml", resources = "text-editor", stage = @FxStage(modality = Modality.APPLICATION, title = "%Text_editor"))
 public class TextEditorApplication extends ApplicationBase<SceneManager<TextEditorApplication>> {
 
     @Override
