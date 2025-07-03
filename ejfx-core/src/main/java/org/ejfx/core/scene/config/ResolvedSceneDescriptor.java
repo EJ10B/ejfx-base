@@ -7,7 +7,7 @@ import java.io.InputStream;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-public class ResolvedSceneDescriptor extends ResolvedDescriptorBase implements AutoCloseable {
+public final class ResolvedSceneDescriptor extends ResolvedDescriptorBase implements AutoCloseable {
 
     private final ResolvedStageDescriptor stageDescriptor;
 
@@ -19,12 +19,12 @@ public class ResolvedSceneDescriptor extends ResolvedDescriptorBase implements A
                                     final ResourcesResolver resolver,
                                     final Locale locale) {
         super(Arguments.requireNonNull(descriptor, "descriptor").getName(),
-                loadResources(Arguments.requireNonNull(resolver, "resolver"),
+                doLoadResources(Arguments.requireNonNull(resolver, "resolver"),
                         descriptor.getResources(),
                         Arguments.requireNonNull(locale, "locale")));
 
-        this.stageDescriptor = ResolvedStageDescriptor.of(descriptor.getStageDescriptor(), getResources());
-        this.fxmlAsStream = loadFXML(resolver, descriptor.getFXML());
+        this.stageDescriptor = ResolvedStageDescriptor.of(descriptor.getStageDescriptor(), getResources(), resolver);
+        this.fxmlAsStream = doLoadFXML(resolver, descriptor.getFXML());
         this.controller = descriptor.getController();
     }
 
@@ -45,13 +45,14 @@ public class ResolvedSceneDescriptor extends ResolvedDescriptorBase implements A
         return stageDescriptor;
     }
 
-    private static InputStream loadFXML(final ResourcesResolver resolver, final String fxml) {
+    private static InputStream doLoadFXML(final ResourcesResolver resolver,
+                                          final String fxml) {
         return resolver.getFXMLAsStream(fxml);
     }
 
-    private static ResourceBundle loadResources(final ResourcesResolver resolver,
-                                                final String resources,
-                                                final Locale locale) {
+    private static ResourceBundle doLoadResources(final ResourcesResolver resolver,
+                                                  final String resources,
+                                                  final Locale locale) {
         return resolver.getResourceBundle(resources, locale);
     }
 

@@ -1,16 +1,20 @@
 package org.ejfx.core.scene.config;
 
+import javafx.scene.image.Image;
 import javafx.stage.Modality;
+import org.ejfx.core.util.Arguments;
+import org.ejfx.core.util.resources.ResourcesResolver;
 
+import java.util.List;
 import java.util.ResourceBundle;
 
-public class ResolvedStageDescriptor extends ResolvedDescriptorBase {
+public final class ResolvedStageDescriptor extends ResolvedDescriptorBase {
 
     private final Modality modality;
 
     private final String title;
 
-    private final String icon;
+    private final List<Image> icons;
 
     private final boolean resizable;
 
@@ -19,12 +23,13 @@ public class ResolvedStageDescriptor extends ResolvedDescriptorBase {
     private final boolean iconified;
 
     private ResolvedStageDescriptor(final DefinedStageDescriptor descriptor,
-                                    final ResourceBundle resources) {
+                                    final ResourceBundle resources,
+                                    final ResourcesResolver resolver) {
         super(resources);
 
-        this.modality = descriptor.getModality();
+        this.modality = Arguments.requireNonNull(descriptor, "descriptor").getModality();
         this.title = getString(descriptor.getTitle());
-        this.icon = descriptor.getIcon();
+        this.icons = doLoadIcons(Arguments.requireNonNull(resolver, "resolver"), descriptor.getIcon());
         this.resizable = descriptor.isResizable();
         this.maximized = descriptor.isMaximized();
         this.iconified = descriptor.isIconified();
@@ -38,8 +43,8 @@ public class ResolvedStageDescriptor extends ResolvedDescriptorBase {
         return title;
     }
 
-    public String getIcon() {
-        return icon;
+    public List<Image> getIcons() {
+        return icons;
     }
 
     public boolean isResizable() {
@@ -54,9 +59,14 @@ public class ResolvedStageDescriptor extends ResolvedDescriptorBase {
         return iconified;
     }
 
+    private static List<Image> doLoadIcons(final ResourcesResolver resolver, final String icon) {
+        return Arguments.copyOf(resolver.getIcon(icon));
+    }
+
     public static ResolvedStageDescriptor of(final DefinedStageDescriptor descriptor,
-                                             final ResourceBundle resources) {
-        return new ResolvedStageDescriptor(descriptor, resources);
+                                             final ResourceBundle resources,
+                                             final ResourcesResolver resolver) {
+        return new ResolvedStageDescriptor(descriptor, resources, resolver);
     }
 
 }

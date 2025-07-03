@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ResourceBundleManager">
+    <file url="file://$PROJECT_DIR$/ejfx-core-sample/src/main/resources/text-editor.properties" />
+    <file url="file://$PROJECT_DIR$/ejfx-core-sample/src/main/resources/text-editor_ru_RU.properties" />
+    <custom-resource-bundle>
+      <file value="file://$PROJECT_DIR$/ejfx-core-sample/src/main/resources/text-editor.properties" />
+      <file value="file://$PROJECT_DIR$/ejfx-core-sample/src/main/resources/text-editor_ru_RU.properties" />
+      <base-name>text-editor</base-name>
+    </custom-resource-bundle>
+  </component>
+</project>

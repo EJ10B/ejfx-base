@@ -392,13 +392,15 @@ public abstract class SceneManagerBase<A> {
                 stage.initModality(descriptor.getModality());
                 stage.setTitle(descriptor.getTitle());
                 stage.setResizable(descriptor.isResizable());
-                currentStage.setMaximized(descriptor.isMaximized());
-                currentStage.setIconified(descriptor.isIconified());
+                stage.setMaximized(descriptor.isMaximized());
+                stage.setIconified(descriptor.isIconified());
+                stage.getIcons().addAll(descriptor.getIcons());
 
                 result = stage;
             } else { // stage -> use current
                 currentStage.setWidth(currentStage.getWidth());
                 currentStage.setHeight(currentStage.getHeight());
+                // currentStage.getIcons() -> TODO
 
                 result = currentStage;
             }
@@ -408,6 +410,7 @@ public abstract class SceneManagerBase<A> {
                 currentStage.setResizable(descriptor.isResizable());
                 currentStage.setMaximized(descriptor.isMaximized());
                 currentStage.setIconified(descriptor.isIconified());
+                currentStage.getIcons().addAll(descriptor.getIcons());
             }
 
             result = currentStage;
