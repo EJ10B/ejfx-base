@@ -14,11 +14,12 @@ public final class DialogDescriptor extends DialogDescriptorBase<Modality> {
     private DialogDescriptor(final String name,
                              final DialogType type,
                              final Modality modality,
+                             final String resources,
                              final String title,
                              final String header,
                              final String content,
                              final Boolean expanded) {
-        super(name, modality, title, header, content);
+        super(name, modality, resources, title, header, content);
 
         this.type = Arguments.requireNonNull(type, "type");
         this.expanded = Arguments.requireNonNull(expanded, "expanded");
@@ -36,6 +37,7 @@ public final class DialogDescriptor extends DialogDescriptorBase<Modality> {
         return DefinedDialogDescriptor.of(getName(),
                 Arguments.getDefined(type, descriptor.getType()),
                 Arguments.getDefined(getModality(), descriptor.getModality()),
+                getResources(),
                 getTitle(),
                 getHeader(),
                 getContent(),
@@ -45,11 +47,19 @@ public final class DialogDescriptor extends DialogDescriptorBase<Modality> {
     public static DialogDescriptor of(final String name,
                                       final DialogType type,
                                       final Modality modality,
+                                      final String resources,
                                       final String title,
                                       final String header,
                                       final String content,
                                       final Boolean expanded) {
-        return new DialogDescriptor(name, type, modality, title, header, content, expanded);
+        return new DialogDescriptor(name,
+                type,
+                modality,
+                resources,
+                title,
+                header,
+                content,
+                expanded);
     }
 
 }

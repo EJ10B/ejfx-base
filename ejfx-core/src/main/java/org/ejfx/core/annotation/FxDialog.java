@@ -17,6 +17,8 @@ public @interface FxDialog {
 
     Modality modality() default Modality.DEFAULT;
 
+    String resources() default "";
+
     String title() default "";
 
     String header() default "";

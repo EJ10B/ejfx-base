@@ -65,7 +65,7 @@ public abstract class SceneManagerBase<A> {
 
     public <T> Optional<T> showDialog(final String name) {
         final Optional<T> result;
-        final DefinedDialogDescriptor descriptor = doGetDialogDescriptor(name);
+        final ResolvedDialogDescriptor descriptor = doGetDialogDescriptor(name);
 
         try {
             result = doShowDialog(descriptor);
@@ -78,7 +78,7 @@ public abstract class SceneManagerBase<A> {
 
     public <T, E> Optional<T> showDialog(final String name, final E value) {
         final Optional<T> result;
-        final DefinedDialogDescriptor descriptor = doGetDialogDescriptor(name);
+        final ResolvedDialogDescriptor descriptor = doGetDialogDescriptor(name);
 
         try {
             result = doShowDialog(descriptor, value);
@@ -91,7 +91,7 @@ public abstract class SceneManagerBase<A> {
 
     public <T> Optional<T> showDialog(final String name, final Collection<T> values) {
         final Optional<T> result;
-        final DefinedDialogDescriptor descriptor = doGetDialogDescriptor(name);
+        final ResolvedDialogDescriptor descriptor = doGetDialogDescriptor(name);
 
         try {
             result = doShowDialog(descriptor, values);
@@ -104,7 +104,7 @@ public abstract class SceneManagerBase<A> {
 
     public <T> Optional<T> showDialog(final String name, final Collection<T> values, final T value) {
         final Optional<T> result;
-        final DefinedDialogDescriptor descriptor = doGetDialogDescriptor(name);
+        final ResolvedDialogDescriptor descriptor = doGetDialogDescriptor(name);
 
         try {
             result = doShowDialog(descriptor, values, value);
@@ -211,11 +211,13 @@ public abstract class SceneManagerBase<A> {
         return result;
     }
 
-    private DefinedDialogDescriptor doGetDialogDescriptor(final String name) {
-        final DefinedDialogDescriptor descriptor = getDialogDescriptor(name);
-
-        return Arguments.requireNonNull(descriptor,
+    private ResolvedDialogDescriptor doGetDialogDescriptor(final String name) {
+        final DefinedDialogDescriptor descriptor = Arguments.requireNonNull(getDialogDescriptor(name),
                 String.format("Unable get dialog descriptor for [%s] name.", name));
+
+        return ResolvedDialogDescriptor.of(descriptor,
+                resolver,
+                Locale.ROOT);
     }
 
     private DefinedFileDialogDescriptor doGetFileDialogDescriptor(final String name) {
@@ -272,7 +274,7 @@ public abstract class SceneManagerBase<A> {
     }
 
     @SuppressWarnings("unchecked")
-    private <T> Optional<T> doShowDialog(final DefinedDialogDescriptor descriptor, final Object... values) {
+    private <T> Optional<T> doShowDialog(final ResolvedDialogDescriptor descriptor, final Object... values) {
         final Optional<T> result;
         final DialogType type = descriptor.getType();
 

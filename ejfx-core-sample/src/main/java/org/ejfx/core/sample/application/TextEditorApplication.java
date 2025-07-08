@@ -16,7 +16,7 @@ import org.ejfx.core.util.lang.Boolean;
 @FxDialog(name = "findText", type = DialogType.TEXT, title = "Find ...", header = "Search for text", content = "Please enter a text to search for ...")
 @FxDialog(name = "textNotFound", title = "Text not found ...", header = "Text has not been found!")
 @FxDialog(name = "saveFileError", title = "Save ...", header = "Save file error!", content = "Details:")
-@FxDialog(name = "saveFileSuccess", title = "Save ...", header = "Save successful!")
+@FxDialog(name = "saveFileSuccess", resources = "text-editor", title = "%Save_dialog_title", header = "Save successful!")
 @FxDialog(name = "openFileError", title = "Open ...", header = "Open file error!", content = "Details:")
 
 @FxDefaultFileDialog(type = FileDialogType.OPEN_FILE)

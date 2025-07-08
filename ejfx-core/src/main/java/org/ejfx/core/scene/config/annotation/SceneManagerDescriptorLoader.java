@@ -96,6 +96,7 @@ public class SceneManagerDescriptorLoader<T> extends SceneManagerDescriptorLoade
         return getDialogDescriptor(annotation.name(),
                 annotation.type(),
                 annotation.modality(),
+                annotation.resources(),
                 annotation.title(),
                 annotation.header(),
                 annotation.content(),

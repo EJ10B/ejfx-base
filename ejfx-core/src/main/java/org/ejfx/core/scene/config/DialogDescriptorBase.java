@@ -6,6 +6,8 @@ public abstract class DialogDescriptorBase<T> extends DescriptorBase {
 
     private final T modality;
 
+    private final String resources;
+
     private final String title;
 
     private final String header;
@@ -14,12 +16,14 @@ public abstract class DialogDescriptorBase<T> extends DescriptorBase {
 
     protected DialogDescriptorBase(final String name,
                                    final T modality,
+                                   final String resources,
                                    final String title,
                                    final String header,
                                    final String content) {
         super(name);
 
         this.modality = Arguments.requireNonNull(modality, "modality");
+        this.resources = Arguments.requireNonNull(resources, "resources");
         this.title = Arguments.requireNonNull(title, "title");
         this.header = Arguments.requireNonNull(header, "header");
         this.content = Arguments.requireNonNull(content, "content");
@@ -27,6 +31,10 @@ public abstract class DialogDescriptorBase<T> extends DescriptorBase {
 
     public final T getModality() {
         return modality;
+    }
+
+    public final String getResources() {
+        return resources;
     }
 
     public final String getTitle() {

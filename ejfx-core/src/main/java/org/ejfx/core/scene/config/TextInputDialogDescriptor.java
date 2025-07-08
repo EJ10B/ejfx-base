@@ -6,18 +6,25 @@ public final class TextInputDialogDescriptor extends DialogDescriptorBase<Modali
 
     private TextInputDialogDescriptor(final String name,
                                       final Modality modality,
+                                      final String resources,
                                       final String title,
                                       final String header,
                                       final String content) {
-        super(name, modality, title, header, content);
+        super(name, modality, resources, title, header, content);
     }
 
     public static TextInputDialogDescriptor of(final String name,
                                                final Modality modality,
+                                               final String resources,
                                                final String title,
                                                final String header,
                                                final String content) {
-        return new TextInputDialogDescriptor(name, modality, title, header, content);
+        return new TextInputDialogDescriptor(name,
+                modality,
+                resources,
+                title,
+                header,
+                content);
     }
 
 }
