@@ -94,9 +94,9 @@ public class SceneManagerDescriptorLoader<T> extends SceneManagerDescriptorLoade
     @SuppressWarnings("unused")
     private DescriptorBase doGetDescriptor(final Class<?> type, final FxDialog annotation) {
         return getDialogDescriptor(annotation.name(),
+                annotation.resources(),
                 annotation.type(),
                 annotation.modality(),
-                annotation.resources(),
                 annotation.title(),
                 annotation.header(),
                 annotation.content(),

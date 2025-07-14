@@ -13,11 +13,11 @@ public @interface FxDialog {
 
     String name();
 
+    String resources() default "";
+
     DialogType type() default DialogType.DEFAULT;
 
     Modality modality() default Modality.DEFAULT;
-
-    String resources() default "";
 
     String title() default "";
 

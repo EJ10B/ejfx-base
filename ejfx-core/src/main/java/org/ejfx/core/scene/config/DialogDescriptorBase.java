@@ -2,11 +2,9 @@ package org.ejfx.core.scene.config;
 
 import org.ejfx.core.util.Arguments;
 
-public abstract class DialogDescriptorBase<T> extends DescriptorBase {
+public abstract class DialogDescriptorBase<T> extends ResourcesDescriptorBase {
 
     private final T modality;
-
-    private final String resources;
 
     private final String title;
 
@@ -15,15 +13,14 @@ public abstract class DialogDescriptorBase<T> extends DescriptorBase {
     private final String content;
 
     protected DialogDescriptorBase(final String name,
-                                   final T modality,
                                    final String resources,
+                                   final T modality,
                                    final String title,
                                    final String header,
                                    final String content) {
-        super(name);
+        super(name, resources);
 
         this.modality = Arguments.requireNonNull(modality, "modality");
-        this.resources = Arguments.requireNonNull(resources, "resources");
         this.title = Arguments.requireNonNull(title, "title");
         this.header = Arguments.requireNonNull(header, "header");
         this.content = Arguments.requireNonNull(content, "content");
@@ -31,10 +28,6 @@ public abstract class DialogDescriptorBase<T> extends DescriptorBase {
 
     public final T getModality() {
         return modality;
-    }
-
-    public final String getResources() {
-        return resources;
     }
 
     public final String getTitle() {

@@ -11,14 +11,14 @@ public final class DefinedDialogDescriptor extends DialogDescriptorBase<Modality
     private final boolean expanded;
 
     private DefinedDialogDescriptor(final String name,
+                                    final String resources,
                                     final DialogType type,
                                     final Modality modality,
-                                    final String resources,
                                     final String title,
                                     final String header,
                                     final String content,
                                     final boolean expanded) {
-        super(name, modality, resources, title, header, content);
+        super(name, resources, modality, title, header, content);
 
         this.type = Arguments.requireNonNull(type, "type");
         this.expanded = Arguments.requireNonNull(expanded, "expanded");
@@ -33,17 +33,17 @@ public final class DefinedDialogDescriptor extends DialogDescriptorBase<Modality
     }
 
     public static DefinedDialogDescriptor of(final String name,
+                                             final String resources,
                                              final DialogType type,
                                              final Modality modality,
-                                             final String resources,
                                              final String title,
                                              final String header,
                                              final String content,
                                              final boolean expanded) {
         return new DefinedDialogDescriptor(name,
+                resources,
                 type,
                 modality,
-                resources,
                 title,
                 header,
                 content,

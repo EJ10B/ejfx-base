@@ -70,14 +70,21 @@ public abstract class SceneManagerDescriptorLoaderBase<T> extends DescriptorLoad
     }
 
     protected DescriptorBase getDialogDescriptor(final String name,
+                                                 final String resources,
                                                  final DialogType type,
                                                  final Modality modality,
-                                                 final String resources,
                                                  final String title,
                                                  final String header,
                                                  final String content,
                                                  final Boolean expanded) {
-        return DialogDescriptor.of(name, type, modality, resources, title, header, content, expanded);
+        return DialogDescriptor.of(name,
+                resources,
+                type,
+                modality,
+                title,
+                header,
+                content,
+                expanded);
     }
 
     protected DescriptorBase getFileDialogDescriptor(final String name,
