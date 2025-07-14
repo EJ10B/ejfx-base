@@ -1,25 +1,22 @@
 package org.ejfx.core.scene.config;
 
-public final class SceneDescriptor extends DescriptorBase {
+public final class SceneDescriptor extends ResourcesDescriptorBase {
 
     private final StageDescriptor stageDescriptor;
 
     private final String fxml;
 
-    private final String resources;
-
     private final Class<?> controller;
 
     private SceneDescriptor(final String name,
+                            final String resources,
                             final StageDescriptor stageDescriptor,
                             final String fxml,
-                            final String resources,
                             final Class<?> controller) {
-        super(name);
+        super(name, resources);
 
         this.stageDescriptor = stageDescriptor;
         this.fxml = fxml;
-        this.resources = resources;
         this.controller = controller;
     }
 
@@ -31,23 +28,19 @@ public final class SceneDescriptor extends DescriptorBase {
         return fxml;
     }
 
-    public String getResources() {
-        return resources;
-    }
-
     public Class<?> getController() {
         return controller;
     }
 
     public static SceneDescriptor of(final String name,
+                                     final String resources,
                                      final StageDescriptor descriptor,
                                      final String fxml,
-                                     final String resources,
                                      final Class<?> controller) {
         return new SceneDescriptor(name,
+                resources,
                 descriptor,
                 fxml,
-                resources,
                 controller);
     }
 

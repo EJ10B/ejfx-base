@@ -145,9 +145,9 @@ public class SceneManagerDescriptorLoader<T> extends SceneManagerDescriptorLoade
 
     private DescriptorBase doGetDescriptor(final Class<?> type, final FxScene annotation) {
         return getSceneDescriptor(annotation.name(),
+                annotation.resources(),
                 doGetStageDescriptor(type, annotation.stage()),
                 annotation.fxml(),
-                annotation.resources(),
                 annotation.controller());
     }
 
